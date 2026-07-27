@@ -1,0 +1,56 @@
+.image-lightbox{
+  position:fixed;
+  inset:0;
+  z-index:1000;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:48px 24px 24px;
+  background:rgba(21,23,31,.92);
+  cursor:zoom-out;
+}
+.image-lightbox.is-open{ display:flex; }
+
+.image-lightbox__inner{
+  position:relative;
+  max-width:min(1400px, 100%);
+  max-height:100%;
+  cursor:default;
+}
+.image-lightbox__img{
+  display:block;
+  max-width:100%;
+  max-height:calc(100vh - 96px);
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  border-radius:4px;
+  box-shadow:0 24px 80px rgba(0,0,0,.35);
+}
+
+.image-lightbox__close{
+  position:fixed;
+  top:20px;
+  right:24px;
+  z-index:1001;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:14px;
+  color:#F1EFE9;
+  background:none;
+  border:none;
+  cursor:pointer;
+  padding:8px 12px;
+  border-radius:4px;
+}
+.image-lightbox__close:hover{ background:rgba(255,255,255,.08); }
+
+.is-expandable{
+  cursor:zoom-in;
+}
+.is-expandable img{
+  cursor:zoom-in;
+  transition:opacity .15s ease;
+}
+.is-expandable:hover img{ opacity:.94; }
+
+body.lightbox-open{ overflow:hidden; }

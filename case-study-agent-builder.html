@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="lightbox.css" rel="stylesheet">
 <style>
   :root{
     --paper:#F1EFE9;
@@ -252,8 +253,6 @@
     grid-template-columns:1fr;
     gap:16px;
   }
-  .feature-imgs.two{ grid-template-columns:1fr 1fr; }
-  @media (max-width:700px){ .feature-imgs.two{ grid-template-columns:1fr; } }
   .feature-imgs .figure-img{ margin-top:0; }
 
   /* ---------- About / footer ---------- */
@@ -291,7 +290,7 @@
     </div>
 
     <div class="hero-figure">
-      <img src="images/hero-builder-canvas.jpg" alt="AI agent builder canvas interface">
+      <img src="images/hero-agent-studio.png" alt="AI agent builder studio interface">
     </div>
   </section>
 
@@ -395,7 +394,7 @@
       <div class="feature">
         <h4>Conversation history and run-level debugging</h4>
         <p class="feature-sub">Deep dive into each agent run — every step, tool call, and decision — for debugging.</p>
-        <div class="feature-imgs two">
+        <div class="feature-imgs">
           <div class="figure-img"><img src="images/conversation-history-1.jpg" alt="Agent conversation history and run detail view"></div>
           <div class="figure-img"><img src="images/conversation-history-2.jpg" alt="Agent conversation history list view"></div>
         </div>
@@ -404,7 +403,7 @@
       <div class="feature">
         <h4>Agent guardrails</h4>
         <p class="feature-sub">Controls that let teams define what an agent is and isn't allowed to do on its own.</p>
-        <div class="feature-imgs two">
+        <div class="feature-imgs">
           <div class="figure-img"><img src="images/guardrails-1.jpg" alt="Agent guardrails configuration screen — content safety settings"></div>
           <div class="figure-img"><img src="images/guardrails-2.jpg" alt="Agent guardrails configuration screen — PII detection settings"></div>
         </div>
@@ -442,6 +441,7 @@
   document.addEventListener('scroll', updateSpine, {passive:true});
   updateSpine();
 </script>
+<script src="lightbox.js"></script>
 
 </body>
 </html>
