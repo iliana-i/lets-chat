@@ -1,0 +1,10 @@
+{
+  "plugins": {
+    "playwright-skill/playwright-skill": {
+      "enabled": true
+    },
+    "figma": {
+      "enabled": true
+    }
+  }
+}
