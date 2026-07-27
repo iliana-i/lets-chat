@@ -293,6 +293,32 @@
   }
   @media (max-width:900px){ .project-row{ grid-template-columns:1fr; } }
 
+  a.project-row--link{
+    text-decoration:none;
+    color:inherit;
+    cursor:pointer;
+    border-radius:calc(var(--radius) + 2px);
+    margin:-16px;
+    padding:16px;
+    border:1px solid transparent;
+    transition:border-color .15s ease, background .15s ease;
+  }
+  a.project-row--link:hover{
+    border-color:var(--line);
+    background:rgba(255,255,255,.35);
+  }
+  a.project-row--link:hover .project-title{ color:var(--teal); }
+  a.project-row--link:hover .cs-link-cta{
+    color:var(--ink);
+    border-color:var(--ink);
+  }
+  a.project-row--link:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:4px;
+  }
+
+  article.project-row--static{ cursor:default; }
+
   .project-visual{
     position:relative;
     min-height:320px;
@@ -360,7 +386,16 @@
     border-bottom:1px solid var(--teal-soft);
     width:fit-content;
   }
-  .cs-link:hover{ color:var(--ink); border-color:var(--ink); }
+  a.cs-link:hover{ color:var(--ink); border-color:var(--ink); }
+  .cs-link-cta{
+    display:inline-block;
+    margin-top:24px;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--teal);
+    border-bottom:1px solid var(--teal-soft);
+    width:fit-content;
+  }
 
   /* About */
   .about h2{ font-size:25px; margin-top:4px; }
@@ -511,9 +546,9 @@
     </div>
 
     <div class="project-list">
-      <article class="project-row">
+      <a href="case-study-agent-builder.html" class="project-row project-row--link" aria-label="AI Agent Builder — view case study">
         <div class="project-visual">
-          <img src="images/hero-agent-studio.png" alt="AI Agent Builder studio screens">
+          <img src="images/hero-agent-studio.png" alt="">
         </div>
         <div class="project-copy">
           <h3 class="project-title">AI Agent Builder</h3>
@@ -528,11 +563,11 @@
             <div><div class="num">3</div><div class="lbl">Timezones</div></div>
             <div><div class="num dashed placeholder" title="Add an outcome metric">—</div><div class="lbl">Outcome</div></div>
           </div>
-          <a class="cs-link" href="case-study-agent-builder.html">View case study →</a>
+          <span class="cs-link-cta">View case study →</span>
         </div>
-      </article>
+      </a>
 
-      <article class="project-row">
+      <article class="project-row project-row--static">
         <div class="project-visual airo" aria-label="AIRO key screen placeholder"></div>
         <div class="project-copy">
           <h3 class="project-title">AIRO — Gen AI Orchestration</h3>

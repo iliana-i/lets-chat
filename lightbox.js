@@ -54,6 +54,7 @@
   });
 
   document.querySelectorAll(SELECTORS).forEach(function(img){
+    if(img.closest('.project-row--link')) return;
     var wrap = img.closest('.figure-img, .hero-figure, .hero-image, .project-visual');
     if(wrap) wrap.classList.add('is-expandable');
     img.addEventListener('click', function(){
