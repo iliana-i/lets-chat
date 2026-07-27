@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agent Builder — Case Study — Iliana Ishak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F1EFE9;
+    --paper-2:#E9E6DD;
+    --ink:#1B1E27;
+    --ink-soft:#4A4F5C;
+    --line:#C7C2B4;
+    --teal:#33594D;
+    --teal-soft:#4C7266;
+    --amber:#C98A2E;
+    --mono: 'IBM Plex Mono', monospace;
+    --display: 'Space Grotesk', sans-serif;
+    --serif: 'Source Serif 4', serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:18px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--amber); color:var(--paper);}
+
+  a:focus-visible, button:focus-visible{
+    outline:2px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  .placeholder{
+    border-bottom:1.5px dashed var(--amber);
+    color:var(--ink-soft);
+    cursor:help;
+  }
+
+  /* ---------- Spine / route-line ---------- */
+  .spine{
+    position:fixed;
+    top:0; bottom:0; left:38px;
+    width:2px;
+    background:var(--line);
+    z-index:1;
+  }
+  .spine-fill{
+    position:absolute; top:0; left:0; width:100%;
+    height:0%;
+    background:var(--teal);
+    transition:height .1s linear;
+  }
+  @media (max-width:820px){ .spine{display:none;} }
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 32px 0 96px;
+    position:relative;
+  }
+  @media (max-width:820px){
+    .wrap{padding:0 24px;}
+  }
+
+  .node{
+    position:absolute;
+    left:-64px;
+    width:12px; height:12px;
+    border-radius:50%;
+    background:var(--paper);
+    border:2px solid var(--teal);
+    top:8px;
+  }
+  @media (max-width:820px){ .node{display:none;} }
+
+  section{
+    position:relative;
+    padding:80px 0;
+    border-bottom:1px solid var(--line);
+  }
+  section:last-of-type{border-bottom:none;}
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:14px;
+    display:block;
+  }
+
+  h1,h2,h3{
+    font-family:var(--display);
+    font-weight:600;
+    letter-spacing:-0.01em;
+    color:var(--ink);
+  }
+
+  /* ---------- Back nav ---------- */
+  .backnav{
+    padding:28px 0 0;
+    border-bottom:none;
+  }
+  .backnav a{
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--teal);
+    text-decoration:none;
+    border-bottom:1px solid var(--teal-soft);
+  }
+  .backnav a:hover{ color:var(--amber); border-color:var(--amber); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding-top:32px;
+    padding-bottom:64px;
+  }
+  .hero .cs-tag{
+    font-family:var(--mono); font-size:13px; color:var(--paper);
+    background:var(--teal); padding:3px 10px; border-radius:2px;
+  }
+  .hero h1{
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.12;
+    max-width:20ch;
+    margin-top:18px;
+  }
+  .hero .cs-sub{
+    font-family:var(--serif);
+    font-style:italic;
+    font-size:clamp(18px,2.2vw,21px);
+    color:var(--ink-soft);
+    margin-top:22px;
+    max-width:56ch;
+  }
+  .hero-meta{
+    margin-top:40px;
+    display:flex;
+    gap:32px;
+    flex-wrap:wrap;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .hero-meta div{ max-width:200px; }
+  .hero-meta .k{ text-transform:uppercase; letter-spacing:.06em; color:var(--teal); display:block; margin-bottom:4px; font-size:11px;}
+
+  .hero-figure{
+    margin-top:48px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+  }
+  .hero-figure img{ width:100%; display:block; }
+
+  /* ---------- Phase blocks ---------- */
+  .phase-header{ display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;}
+  .phase-tag{
+    font-family:var(--mono); font-size:13px; color:var(--paper);
+    background:var(--teal); padding:3px 10px; border-radius:2px;
+  }
+  h2.phase-title{ font-size:clamp(26px,3.6vw,34px); margin-top:6px; line-height:1.2; }
+
+  .meta-row{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+    margin-top:32px;
+    padding:20px 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  @media (max-width:700px){ .meta-row{ grid-template-columns:1fr 1fr; } }
+  .meta-item .k{
+    font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--teal); margin-bottom:6px; display:block;
+  }
+  .meta-item .v{ font-size:15px; color:var(--ink-soft); line-height:1.45; }
+
+  .cs-block{ margin-top:44px; }
+  .cs-block h3{
+    font-family:var(--mono); font-size:14px; text-transform:uppercase; letter-spacing:.06em;
+    color:var(--ink); margin-bottom:12px; font-weight:500;
+  }
+  .cs-block p{ max-width:66ch; color:var(--ink-soft); font-size:17px; }
+  .cs-block p + p{ margin-top:14px; }
+  .cs-block ol, .cs-block ul{ max-width:66ch; color:var(--ink-soft); font-size:17px; margin-top:10px; padding-left:22px; }
+  .cs-block li + li{ margin-top:10px; }
+  .cs-block li::marker{ color:var(--teal); font-family:var(--mono); }
+
+  .stat-row{
+    display:flex; gap:40px; flex-wrap:wrap; margin-top:36px;
+  }
+  .stat{ min-width:140px; }
+  .stat .num{ font-family:var(--display); font-size:30px; font-weight:600; color:var(--teal); line-height:1.15;}
+  .stat .lbl{ font-family:var(--mono); font-size:12px; color:var(--ink-soft); margin-top:4px; text-transform:uppercase; letter-spacing:.04em;}
+
+  .figure{
+    margin-top:36px;
+    border:1px solid var(--line);
+    background:var(--paper-2);
+    aspect-ratio:16/9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:var(--mono);
+    font-size:13px;
+    color:var(--ink-soft);
+    text-align:center;
+    padding:20px;
+  }
+
+  .figure-img{
+    margin-top:36px;
+    border:1px solid var(--line);
+    border-radius:2px;
+    overflow:hidden;
+    background:var(--paper-2);
+  }
+  .figure-img img{ width:100%; display:block; }
+  .figure-cap{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--ink-soft);
+    margin-top:10px;
+    letter-spacing:.02em;
+  }
+
+  /* ---------- Feature showcase ---------- */
+  .feature{ margin-top:52px; }
+  .feature:first-of-type{ margin-top:36px; }
+  .feature h4{
+    font-family:var(--display); font-weight:600; font-size:19px; color:var(--ink);
+    margin-bottom:4px;
+  }
+  .feature .feature-sub{
+    font-family:var(--serif); font-style:italic; font-size:15px; color:var(--ink-soft); max-width:60ch;
+  }
+  .feature-imgs{
+    margin-top:18px;
+    display:grid;
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .feature-imgs.two{ grid-template-columns:1fr 1fr; }
+  @media (max-width:700px){ .feature-imgs.two{ grid-template-columns:1fr; } }
+  .feature-imgs .figure-img{ margin-top:0; }
+
+  /* ---------- About / footer ---------- */
+  footer{
+    padding:64px 0 48px;
+    font-family:var(--mono); font-size:13px; color:var(--ink-soft);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px;
+  }
+  footer a{ color:var(--teal); text-decoration:none; border-bottom:1px solid var(--teal-soft); }
+  footer a:hover{ color:var(--amber); border-color:var(--amber); }
+</style>
+</head>
+<body>
+
+<div class="spine"><div class="spine-fill" id="spineFill"></div></div>
+
+<div class="wrap">
+
+  <!-- BACK NAV -->
+  <section class="backnav">
+    <a href="portfolio_option_3.html#case-a">← Back to portfolio</a>
+  </section>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="node"></div>
+    <span class="cs-tag">Case Study A</span>
+    <h1>AI Agent Builder: from a hacked-together demo to an enterprise agent platform</h1>
+    <p class="cs-sub">How we went from an agent conversation demo with no builder UI to a full-fledged ecosystem letting business users build, deploy, manage, and govern agents at scale.</p>
+
+    <div class="hero-meta">
+      <div><span class="k">Company</span>Workato</div>
+      <div><span class="k">Role</span>Design Lead, from solo IC to team of 4</div>
+      <div><span class="k">Timeline</span>2 months to launch, ongoing since</div>
+    </div>
+
+    <div class="hero-figure">
+      <img src="images/hero-builder-canvas.jpg" alt="AI agent builder canvas interface">
+    </div>
+  </section>
+
+  <!-- PHASE 1 -->
+  <section id="phase-1">
+    <div class="node"></div>
+    <div class="phase-header">
+      <span class="phase-tag">Phase 1</span>
+    </div>
+    <h2 class="phase-title">Translate a hacked demo into an actual builder UI, to launch 0→1 in 2 months</h2>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="k">Role</span><div class="v">Solo IC Design Lead</div></div>
+      <div class="meta-item"><span class="k">Stakeholders</span><div class="v">2 executives, 5 eng leads (UI, Infra, BE, AI, Platform), 1 PM lead, 2 solutions architects</div></div>
+      <div class="meta-item"><span class="k">Timeline</span><div class="v">Under 2 months</div></div>
+      <div class="meta-item"><span class="k">Outcome</span><div class="v">Launched to 100 customers, incl. ServiceTitan, Persefoni, 6sense, Samsara, Workiva, Zendesk</div></div>
+    </div>
+
+    <div class="cs-block">
+      <h3>The ask</h3>
+      <p>Three parallel tracks in two months, as first priority, while still shipping two other ongoing projects:</p>
+      <ol>
+        <li><strong>A custom agent builder UI for non-technical users</strong> — ready to launch to customers at our yearly conference.</li>
+        <li><strong>Agentic as a whole new market</strong> — customers needed to be able to buy the agent solution without buying the rest of the iPaaS platform, so we could price it competitively as a standalone AI offering, reusing as much internal infrastructure as possible.</li>
+        <li><strong>An immediate rollout to 2–4 early partners</strong> — making the hacked-together solution as usable as possible, as-is, in the meantime.</li>
+      </ol>
+    </div>
+
+    <div class="cs-block">
+      <h3>What we delivered</h3>
+      <div class="figure">
+        <span class="placeholder" title="Add a before/after screenshot comparing the original hacked demo to the shipped builder UI">Add: before / after — the hacked demo vs. the shipped builder UI</span>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>What I'm proud of</h3>
+      <ul>
+        <li>Kept two previously-running projects shipping on schedule while delegating and managing two other designers, all while navigating a leadership transition — with five dev leads in nearly every discussion. That meant learning to speak the same language and jargon as engineering, to gain mutual respect and strip out complexity for the end user.</li>
+        <li>Went deep on the underlying technical implementation <span class="placeholder" title="Add the actual timeframe this took">[in a short period — add a number]</span>, so I could speak the same language as the devs and move conversations from "you don't understand" to "how can we simplify this together."</li>
+        <li>Every lead was describing the system differently — I visualized it so the whole team could build from one shared understanding.</li>
+        <li>Defined the mental model for building non-deterministic agent workflows, at a time when "agentic" wasn't yet common language in the industry.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PHASE 2 -->
+  <section id="phase-2">
+    <div class="node"></div>
+    <div class="phase-header">
+      <span class="phase-tag">Phase 2</span>
+    </div>
+    <h2 class="phase-title">Flesh out the initial agent builder into a full-fledged, enterprise-ready platform</h2>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="k">Role</span><div class="v">Started as player-coach, now lead a dedicated AI initiatives design team of 4</div></div>
+      <div class="meta-item"><span class="k">Stakeholders</span><div class="v">PM director managing 3 PMs</div></div>
+      <div class="meta-item"><span class="k">Timeline</span><div class="v">Interspersed from end of 2024 to today</div></div>
+      <div class="meta-item"><span class="k">Outcome</span><div class="v"><span class="placeholder" title="Add feature release count">[x] feature releases</span></div></div>
+    </div>
+
+    <div class="cs-block">
+      <p>During this period, I also led my team and other designers on the company's second big bet, AIRO — building automations with Gen AI (<a href="portfolio_option_3.html#case-b" style="text-decoration:underline;">see case study</a>) — alongside Pricing and Usage features.</p>
+    </div>
+
+    <div class="cs-block">
+      <h3>The ask</h3>
+      <p class="placeholder" title="Add the ask for Phase 2 — what were you being asked to solve as the platform matured?">[Add the ask for this phase — what were the priorities as the builder moved from launch to enterprise-ready?]</p>
+    </div>
+
+    <div class="cs-block">
+      <h3>Outcomes</h3>
+      <p>As of July 17, 2026, in the past 30 days:</p>
+      <div class="stat-row">
+        <div class="stat"><div class="num">337K</div><div class="lbl">Conversations</div></div>
+        <div class="stat"><div class="num">1.46M</div><div class="lbl">Tool calls</div></div>
+        <div class="stat"><div class="num">1,471</div><div class="lbl">Active agents</div></div>
+        <div class="stat"><div class="num">82%</div><div class="lbl">Adoption across customers</div></div>
+        <div class="stat"><div class="num">434</div><div class="lbl">Paying customers</div></div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>What we delivered</h3>
+      <div class="figure">
+        <span class="placeholder" title="Add a before/after screenshot showing how the builder matured from Phase 1 to Phase 2">Add: before / after — the Phase 1 builder vs. today's enterprise platform</span>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>Sneak peek into some of the features delivered</h3>
+
+      <div class="feature">
+        <h4>Agent observability in one view</h4>
+        <p class="feature-sub">A single dashboard for the health of every agent running in an org.</p>
+        <div class="feature-imgs">
+          <div class="figure-img"><img src="images/agent-observability.jpg" alt="Agent observability dashboard showing agent health metrics"></div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <h4>Conversation history and run-level debugging</h4>
+        <p class="feature-sub">Deep dive into each agent run — every step, tool call, and decision — for debugging.</p>
+        <div class="feature-imgs two">
+          <div class="figure-img"><img src="images/conversation-history-1.jpg" alt="Agent conversation history and run detail view"></div>
+          <div class="figure-img"><img src="images/conversation-history-2.jpg" alt="Agent conversation history list view"></div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <h4>Agent guardrails</h4>
+        <p class="feature-sub">Controls that let teams define what an agent is and isn't allowed to do on its own.</p>
+        <div class="feature-imgs two">
+          <div class="figure-img"><img src="images/guardrails-1.jpg" alt="Agent guardrails configuration screen — content safety settings"></div>
+          <div class="figure-img"><img src="images/guardrails-2.jpg" alt="Agent guardrails configuration screen — PII detection settings"></div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <h4>Expanded LLM options and bring-your-own-LLM</h4>
+        <p class="feature-sub">Letting customers choose or bring the model that best fits their cost, latency, or compliance needs.</p>
+        <div class="feature-imgs">
+          <div class="figure-img"><img src="images/llm-options.jpg" alt="LLM selection and bring-your-own-LLM settings"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cs-block">
+      <h3>What I'm proud of</h3>
+      <p class="placeholder" title="Add what you're proud of for this phase">[Add: what you're proud of in growing this from a launch-ready builder into an enterprise platform — team growth, standards set, hard calls made]</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Iliana Ishak</span>
+    <a href="portfolio_option_3.html#case-a">← Back to portfolio</a>
+  </footer>
+
+</div>
+
+<script>
+  const fill = document.getElementById('spineFill');
+  function updateSpine(){
+    const h = document.documentElement;
+    const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight) * 100;
+    if(fill) fill.style.height = Math.min(100, Math.max(0, scrolled)) + '%';
+  }
+  document.addEventListener('scroll', updateSpine, {passive:true});
+  updateSpine();
+</script>
+
+</body>
+</html>
