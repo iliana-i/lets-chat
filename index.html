@@ -142,24 +142,7 @@
   .hero-meta a{ color:var(--teal); text-decoration:none; border-bottom:1px solid var(--teal-soft); }
   .hero-meta a:hover{ color:var(--amber); border-color:var(--amber); }
 
-  .hero-diagram{
-    margin-top:56px;
-    width:100%;
-    max-width:520px;
-    height:auto;
-  }
-  .hero-diagram path{
-    stroke-dasharray: 4 4;
-    animation: dash 22s linear infinite;
-  }
-  @keyframes dash{ to{ stroke-dashoffset:-200; } }
-  .hero-diagram circle{ animation: pulse 3.2s ease-in-out infinite; transform-origin:center; }
-  .hero-diagram circle:nth-child(2){ animation-delay:.6s; }
-  .hero-diagram circle:nth-child(3){ animation-delay:1.2s; }
-  @keyframes pulse{ 0%,100%{ opacity:.55; } 50%{ opacity:1; } }
-
   @media (prefers-reduced-motion: reduce){
-    .hero-diagram path, .hero-diagram circle{ animation:none !important; }
     html{ scroll-behavior:auto; }
   }
 
@@ -273,14 +256,6 @@
     <span class="eyebrow">Iliana Ishak</span>
     <h1>Design leader for AI systems people actually trust to act on their behalf.</h1>
     <p class="role">Design Manager, AI Products — Workato. I build the teams and the systems behind AI-native products, from the first sketch of an agent to the governance that keeps a fast-moving AI platform coherent.</p>
-
-    <svg class="hero-diagram" viewBox="0 0 520 140" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M10 100 C 120 20, 180 120, 260 60 S 420 10, 510 70" stroke="#C7C2B4" stroke-width="1.5"/>
-      <path d="M10 100 C 120 20, 180 120, 260 60 S 420 10, 510 70" stroke="#33594D" stroke-width="1.5"/>
-      <circle cx="10" cy="100" r="5" fill="#33594D"/>
-      <circle cx="260" cy="60" r="5" fill="#C98A2E"/>
-      <circle cx="510" cy="70" r="5" fill="#33594D"/>
-    </svg>
 
     <div class="hero-meta">
       <a href="https://www.linkedin.com/in/ilianaishak" target="_blank">LinkedIn ↗</a>
