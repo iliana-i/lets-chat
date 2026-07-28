@@ -274,6 +274,26 @@
     letter-spacing:.02em;
   }
 
+  .compare-row{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:20px;
+    margin-top:12px;
+  }
+  .compare-item h4{
+    font-family:var(--body);
+    font-size:13px;
+    font-weight:600;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .compare-item .figure-img{ margin-top:0; }
+  @media (max-width:720px){
+    .compare-row{ grid-template-columns:1fr; }
+  }
+
   /* ---------- Feature bento (Raindrop-style grid) ---------- */
   .cs-block--features{ margin-top:44px; }
   .cs-block--features .feature-bento{ margin-top:2px; }
@@ -487,28 +507,42 @@
 
     <div class="cs-block">
       <h3>The ask</h3>
-      <p>Three parallel tracks in two months, as first priority, while still shipping two other ongoing projects:</p>
+      <p>Two enterprise architects had put together an impressive demo of an AI agent handling an SDR's workflow end-to-end, but built on a web of deterministic workflows and custom-coded connectors so complex it stumped even our most tenured product specialists.</p>
+      <p>With our annual conference 2 months out, leadership wanted to turn this into a flagship agentic offering. My job: untangle the hacked demo into a custom agent builder that any non-technical user could use.</p>
+      <p>Three parallel tracks in &lt;2 months:</p>
       <ol>
-        <li><strong>A custom agent builder UI for non-technical users</strong> — ready to launch to customers at our yearly conference.</li>
-        <li><strong>Agentic as a whole new market</strong> — customers needed to be able to buy the agent solution without buying the rest of the iPaaS platform, so we could price it competitively as a standalone AI offering, reusing as much internal infrastructure as possible.</li>
-        <li><strong>An immediate rollout to 2–4 early partners</strong> — making the hacked-together solution as usable as possible, as-is, in the meantime.</li>
+        <li><strong>A custom agent builder UI for non-technical users</strong>, ready to present to 2,000+ customers at our conference.</li>
+        <li><strong>Agentic as a standalone product</strong>, priced apart from the core iPaaS platform, even though it still depended on tools that lived inside that same core platform, like data tables, file storage, and connections.</li>
+        <li><strong>An immediate rollout to 2–4 early partners</strong>, designing a somewhat usable experience around the hacked-together solution as-is, to start selling ahead of competitors.</li>
       </ol>
     </div>
 
     <div class="cs-block">
       <h3>What we delivered</h3>
-      <div class="figure">
-        <span class="placeholder" title="Add a before/after screenshot comparing the original hacked demo to the shipped builder UI">Add: before / after — the hacked demo vs. the shipped builder UI</span>
+      <div class="compare-row">
+        <div class="compare-item">
+          <h4>Before</h4>
+          <div class="figure-img">
+            <img src="images/Agent Studio P1_ Before.png" alt="Agent Studio before: folder-based asset view for Genies in the legacy demo">
+          </div>
+        </div>
+        <div class="compare-item">
+          <h4>After</h4>
+          <div class="figure-img">
+            <img src="images/Agent Studio P1_ After.png" alt="Agent Studio after: visual recipe builder for configuring an agent and integrations">
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="cs-block">
       <h3>What I'm proud of</h3>
       <ul>
-        <li>Kept two previously-running projects shipping on schedule while delegating and managing two other designers, all while navigating a leadership transition — with five dev leads in nearly every discussion. That meant learning to speak the same language and jargon as engineering, to gain mutual respect and strip out complexity for the end user.</li>
-        <li>Went deep on the underlying technical implementation <span class="placeholder" title="Add the actual timeframe this took">[in a short period — add a number]</span>, so I could speak the same language as the devs and move conversations from "you don't understand" to "how can we simplify this together."</li>
-        <li>Every lead was describing the system differently — I visualized it so the whole team could build from one shared understanding.</li>
-        <li>Defined the mental model for building non-deterministic agent workflows, at a time when "agentic" wasn't yet common language in the industry.</li>
+        <li><strong>Shaping solutions with leadership:</strong> Led design decisions at the strategic level, pushing back where needed, raising considerations from other parts of the product, and collaborating directly with execs and leads to shape solutions.</li>
+        <li><strong>Change without losing trust:</strong> Reworked a solution the solution architects had built and were proud of, handled with enough sensitivity to keep their buy-in and keep momentum going.</li>
+        <li><strong>Owning ambiguity:</strong> Team formed right after a major leadership transition, with no clear final decision-maker. Ended up owning the heavier design calls as a result.</li>
+        <li><strong>Technical fluency:</strong> Went deep technically to speak the same language as 5 dev leads, shifting conversations from "you don't understand" to "how can we simplify this together."</li>
+        <li><strong>Systems thinking:</strong> Mapped how Genie's infrastructure would translate into a UI-based agent builder, giving the team one shared mental model, and defining agentic workflow patterns before "agentic" was industry language.</li>
       </ul>
     </div>
   </section>
