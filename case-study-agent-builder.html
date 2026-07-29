@@ -64,18 +64,18 @@
     position:fixed;
     top:0; left:3px; bottom:0;
     width:var(--nav-w);
-    padding:48px 14px;
+    padding:48px 20px;
     display:flex; flex-direction:column;
     justify-content:space-between;
     z-index:4;
   }
   .side-nav .nav-name{
-    font-family:var(--display); font-weight:600; font-size:13px;
+    font-family:var(--display); font-weight:600; font-size:14px;
     letter-spacing:-0.02em; text-decoration:none; color:var(--ink);
     line-height:1.3;
   }
   .side-nav .nav-name:hover{ color:var(--teal); }
-  .side-nav .nav-links{ margin-top:36px; display:flex; flex-direction:column; gap:10px; }
+  .side-nav .nav-links{ margin-top:42px; display:flex; flex-direction:column; gap:10px; }
   .side-nav .nav-links a{
     font-family:var(--mono); font-size:12.5px; text-decoration:none;
     letter-spacing:.02em;
@@ -166,7 +166,7 @@
   .wrap{
     max-width:920px;
     margin:0 auto;
-    padding:0 48px 96px calc(var(--nav-w) + 40px);
+    padding:0 48px 96px calc(var(--nav-w) + 48px);
     position:relative;
   }
   @media (max-width:900px){
@@ -221,7 +221,7 @@
     font-weight:600;
     line-height:1.08;
     max-width:22ch;
-    margin-top:18px;
+    margin-top:0;
     letter-spacing:-0.03em;
   }
   .hero .cs-sub{
@@ -235,6 +235,7 @@
   }
   .hero-meta{
     margin-top:40px;
+    max-width:56ch;
     display:flex;
     gap:32px;
     flex-wrap:wrap;
@@ -242,11 +243,14 @@
     font-size:13px;
     color:var(--ink-soft);
   }
-  .hero-meta div{ max-width:200px; }
+  .hero-meta div{ max-width:none; flex:1 1 140px; }
   .hero-meta .k{ text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); display:block; margin-bottom:4px; font-size:11px; font-weight:500; font-family:var(--body);}
 
   .hero-figure{
     margin-top:48px;
+    width:calc(100% + 96px);
+    max-width:min(calc(100vw - 80px), 1040px);
+    margin-left:-48px;
     border:1px solid var(--line);
     border-radius:var(--frame-radius);
     overflow:hidden;
@@ -254,6 +258,9 @@
     box-shadow:var(--shadow-frame);
   }
   .hero-figure img{ width:100%; display:block; }
+  @media (max-width:900px){
+    .hero-figure{ width:100%; max-width:none; margin-left:0; }
+  }
 
   /* ---------- Phase blocks ---------- */
   .phase-header{ display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;}
@@ -293,6 +300,15 @@
     font-family:var(--body);
   }
   .meta-row .v{ font-family:inherit; font-size:inherit; color:inherit; line-height:1.5; }
+
+  .phase-outcomes{ margin-top:28px; }
+  .phase-outcomes h3{
+    font-family:var(--body); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
+    color:var(--ink); margin-bottom:12px;
+  }
+  .phase-outcomes > p{ color:var(--ink-soft); font-size:16px; line-height:1.65; }
+  .phase-outcomes .stat-row{ margin-top:16px; }
+  .phase-outcomes-note{ margin-top:14px; color:var(--ink-soft); font-size:16px; line-height:1.65; }
 
   .cs-block{ margin-top:44px; }
   .cs-block h3{
@@ -547,7 +563,8 @@
   <button class="m-toggle" type="button" onclick="toggleMenu()">Menu</button>
 </div>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="#top" onclick="closeMenu()">Back to top ↑</a>
+  <a href="index.html" onclick="closeMenu()">← Back</a>
+  <a href="#top" onclick="closeMenu()">Intro</a>
   <a href="#phase-1" onclick="closeMenu()">Phase 1</a>
   <a href="#phase-2" onclick="closeMenu()">Phase 2</a>
   <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer" class="ext">LinkedIn ↗</a>
@@ -565,7 +582,8 @@
   <div>
     <a href="index.html" class="nav-name">ILIANA ISHAK</a>
     <div class="nav-links">
-      <a href="#top" class="nav-link nav-link--back">Back to top ↑</a>
+      <a href="index.html" class="nav-link--back">← Back</a>
+      <a href="#top" class="nav-link">Intro</a>
       <a href="#phase-1" class="nav-link">Phase 1</a>
       <a href="#phase-2" class="nav-link">Phase 2</a>
     </div>
@@ -587,14 +605,13 @@
 
   <!-- HERO -->
   <section class="hero" id="top">
-    <span class="cs-tag">Case Study A</span>
-    <h1>AI Agent Builder: from a hacked-together demo to an enterprise agent platform</h1>
-    <p class="cs-sub">How we went from an agent conversation demo with no builder UI to a full-fledged ecosystem letting business users build, deploy, manage, and govern agents at scale.</p>
+    <h1>AI Agent Builder: from zero to enterprise platform</h1>
+    <p class="cs-sub">How we went from an agent conversation demo with <em>no builder UI</em> to a full-fledged agent ecosystem that lets business users build, deploy, manage, and govern agents at scale.</p>
 
     <div class="hero-meta">
       <div><span class="k">Company</span>Workato</div>
-      <div><span class="k">Role</span>Design Lead, from solo IC to team of 4</div>
-      <div><span class="k">Timeline</span>2 months to launch, ongoing since</div>
+      <div><span class="k">Role</span>Design Lead: Solo IC → Player-coach → Team of 3+</div>
+      <div><span class="k">Lifecycle</span>0 → Beta → GA → Continuous releases</div>
     </div>
 
     <div class="hero-figure">
@@ -613,7 +630,14 @@
       <div><span class="k">Role</span><span class="v">Solo IC Design Lead</span></div>
       <div><span class="k">Stakeholders</span><span class="v">2 executives, 5 eng leads (UI, Infra, BE, AI, Platform), 1 PM lead, 2 solutions architects</span></div>
       <div><span class="k">Timeline</span><span class="v">Under 2 months</span></div>
-      <div><span class="k">Outcome</span><span class="v">Launched to 100 customers, incl. ServiceTitan, Persefoni, 6sense, Samsara, Workiva, Zendesk</span></div>
+    </div>
+
+    <div class="phase-outcomes">
+      <h3>Outcomes</h3>
+      <div class="stat-row">
+        <div class="stat"><div class="num">100</div><div class="lbl">Customers launched</div></div>
+      </div>
+      <p class="phase-outcomes-note">Including ServiceTitan, Persefoni, 6sense, Samsara, Workiva, Zendesk.</p>
     </div>
 
     <div class="cs-block">
@@ -669,7 +693,19 @@
       <div><span class="k">Role</span><span class="v">Started as player-coach, now lead a dedicated AI initiatives design team of 4</span></div>
       <div><span class="k">Stakeholders</span><span class="v">PM director managing 3 PMs</span></div>
       <div><span class="k">Timeline</span><span class="v">Interspersed from end of 2024 to today</span></div>
-      <div><span class="k">Outcome</span><span class="v"><span class="placeholder" title="Add feature release count">[x] feature releases</span></span></div>
+    </div>
+
+    <div class="phase-outcomes">
+      <h3>Outcomes</h3>
+      <p>As of July 17, 2026, in the past 30 days:</p>
+      <div class="stat-row">
+        <div class="stat"><div class="num">337K</div><div class="lbl">Conversations</div></div>
+        <div class="stat"><div class="num">1.46M</div><div class="lbl">Tool calls</div></div>
+        <div class="stat"><div class="num">1,471</div><div class="lbl">Active agents</div></div>
+        <div class="stat"><div class="num">82%</div><div class="lbl">Adoption across customers</div></div>
+        <div class="stat"><div class="num">434</div><div class="lbl">Paying customers</div></div>
+        <div class="stat"><div class="num"><span class="placeholder" title="Add feature release count">[x]</span></div><div class="lbl">Feature releases</div></div>
+      </div>
     </div>
 
     <div class="cs-block">
@@ -679,18 +715,6 @@
     <div class="cs-block">
       <h3>The ask</h3>
       <p class="placeholder" title="Add the ask for Phase 2 — what were you being asked to solve as the platform matured?">[Add the ask for this phase — what were the priorities as the builder moved from launch to enterprise-ready?]</p>
-    </div>
-
-    <div class="cs-block">
-      <h3>Outcomes</h3>
-      <p>As of July 17, 2026, in the past 30 days:</p>
-      <div class="stat-row">
-        <div class="stat"><div class="num">337K</div><div class="lbl">Conversations</div></div>
-        <div class="stat"><div class="num">1.46M</div><div class="lbl">Tool calls</div></div>
-        <div class="stat"><div class="num">1,471</div><div class="lbl">Active agents</div></div>
-        <div class="stat"><div class="num">82%</div><div class="lbl">Adoption across customers</div></div>
-        <div class="stat"><div class="num">434</div><div class="lbl">Paying customers</div></div>
-      </div>
     </div>
 
     <div class="cs-block">
