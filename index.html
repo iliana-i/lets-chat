@@ -260,11 +260,12 @@
     margin-top:14px;
     font-size:17px;
     font-weight:400;
-    color:#A1A1AA;
+    color:var(--ink);
     max-width:46ch;
     line-height:1.65;
     text-wrap:pretty;
   }
+  .hero .role-body strong{ font-weight:600; }
 
   .hero-stats{
     display:flex;
@@ -364,6 +365,8 @@
 
   /* Selected work */
   .work-intro{ margin-bottom:8px; }
+  .work-intro .section-headline{ max-width:none; width:100%; }
+  .work-intro .section-body{ max-width:none; }
 
   .project-list{ margin-top:48px; display:flex; flex-direction:column; gap:20px; }
 
@@ -372,7 +375,7 @@
     grid-template-columns:minmax(0, .95fr) minmax(0, 1.05fr);
     grid-template-areas:"copy visual";
     gap:32px;
-    align-items:start;
+    align-items:stretch;
   }
   .project-visual{ grid-area:visual; }
   .project-copy{ grid-area:copy; }
@@ -427,22 +430,26 @@
   .project-visual{
     position:relative;
     min-height:320px;
+    align-self:stretch;
     border-radius:var(--radius);
     overflow:hidden;
     background:var(--paper-2);
     border:1px solid var(--line);
   }
   .project-visual img{
+    position:absolute;
+    inset:0;
     width:100%;
     height:100%;
-    min-height:320px;
     object-fit:cover;
+    object-position:center top;
     display:block;
-    transform:translateY(0) scale(1);
+    transform:scale(1);
+    transform-origin:50% 100%;
     transition:transform .55s cubic-bezier(.22, 1, .36, 1);
   }
   a.project-row--link:hover .project-visual img{
-    transform:translateY(-16px) scale(1.04);
+    transform:scale(1.025);
   }
   .project-visual.airo{
     background:var(--paper-2);
@@ -466,7 +473,9 @@
   }
 
   .project-role{ margin-top:11px; }
-  .project-role .lbl{
+  .project-lifecycle{ margin-top:11px; }
+  .project-role .lbl,
+  .project-lifecycle .lbl{
     font-family:var(--body);
     font-size:11px;
     font-weight:500;
@@ -476,20 +485,31 @@
     display:block;
     margin-bottom:4px;
   }
-  .project-role p{ font-size:14.5px; color:var(--ink-soft); line-height:1.55; }
+  .project-role p,
+  .project-lifecycle p{ font-size:14.5px; color:var(--ink-soft); line-height:1.55; }
+  .project-lifecycle p em{ font-style:italic; }
 
   .project-stats{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:repeat(3, minmax(0, 1fr));
     gap:10px;
     margin-top:12px;
     padding:12px 0;
   }
+  .project-stats--two{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
   .project-stats .num{
     font-family:var(--display);
     font-size:18px;
     font-weight:700;
+    letter-spacing:-0.01em;
     color:var(--ink);
+    line-height:1.35;
+  }
+  .project-stats .num--muted{
+    font-size:15px;
+    font-weight:400;
+    font-style:italic;
+    color:#A1A1AA;
   }
   .project-stats .num.dashed{
     border-bottom:1px dashed var(--teal);
@@ -497,7 +517,15 @@
     min-width:1.5em;
     padding-bottom:2px;
   }
-  .project-stats .lbl{ font-size:10.5px; color:var(--ink-soft); margin-top:3px; }
+  .project-stats .lbl{
+    font-family:var(--body);
+    font-size:10px;
+    font-weight:500;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    margin-top:3px;
+  }
 
   .cs-link{
     display:inline-block;
@@ -521,18 +549,28 @@
   }
 
   /* About */
-  .about .section-headline{ max-width:none; margin-bottom:28px; }
+  .about .section-headline{ max-width:none; margin-bottom:0; }
   .about-layout{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:40px;
-    margin-top:8px;
+    margin-top:28px;
     align-items:start;
   }
   @media (max-width:700px){ .about-layout{ grid-template-columns:1fr; } }
 
   .about-bio{ font-size:17px; font-weight:400; color:var(--ink-soft); line-height:1.75; }
-  .about-bio p + p{ margin-top:14px; }
+  .about-bio p + p{ margin-top:0; }
+  .about-bio p + .about-note{ margin-top:14px; }
+
+  .about-note{
+    font-family:var(--mono);
+    font-size:13.5px;
+    font-weight:400;
+    color:var(--ink-soft);
+    line-height:1.6;
+    max-width:none;
+  }
 
   .about-side{ font-size:17px; font-weight:400; color:var(--ink-soft); line-height:1.75; }
 
@@ -553,6 +591,7 @@
   }
   .btn:hover{ background:var(--paper-2); border-color:var(--line); }
 
+  .about-side .about-side-link{ margin-top:13px; }
   .about-side .linkedin{ text-decoration:underline; color:var(--ink-soft); }
   .about-side .email{
     display:inline-block;
@@ -588,7 +627,7 @@
   <a href="#selected-work" onclick="closeMenu()">Selected work</a>
   <a href="#about" onclick="closeMenu()">About</a>
   <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer" class="ext">LinkedIn ↗</a>
-  <a href="REPLACE-WITH-RESUME-LINK.pdf" class="ext">Résumé ↓</a>
+  <a href="REPLACE-WITH-CV-LINK.pdf" class="ext">CV ↓</a>
   <button type="button" class="mobile-copy-email ext" onclick="copyEmail(this); closeMenu();" aria-label="Copy email address">
     Email
     <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-left:6px;">
@@ -609,7 +648,7 @@
   </div>
   <div class="nav-external">
     <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-    <a href="REPLACE-WITH-RESUME-LINK.pdf">Résumé ↓</a>
+    <a href="REPLACE-WITH-CV-LINK.pdf">CV ↓</a>
     <button type="button" class="nav-copy-email" onclick="copyEmail(this)" aria-label="Copy email address">
       Email
       <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -627,7 +666,7 @@
       <div class="hero-content">
         <h1>Product Design Leader, AI Products</h1>
         <p class="role-lead">I go deep into complexity so users don't have to.</p>
-        <p class="role-body">Right now: leading my team to ship at the pace AI evolves, whilst using design to bridge what it can't yet do.</p>
+        <p class="role-body"><strong>Right now:</strong> leading my team to ship at the pace AI evolves, whilst using design to bridge what it can't yet do.</p>
 
         <div class="hero-stats">
           <div>
@@ -669,54 +708,59 @@
     <div class="work-intro">
       <p class="eyebrow">Selected work</p>
       <h2 class="section-headline">
-        <span class="headline-regular">Leading design to pivot from ipaas to </span><span class="headline-emphasis">AI-native company.</span>
+        <span class="headline-regular">Leading design to pivot from<br>iPaaS to </span><span class="headline-emphasis">AI-native company</span>
       </h2>
       <div class="section-body">
-        <p>I lead the AI Products design team at Workato, spending the last three years directly collaborating with execs, engineering and PM leads and working head to head with my team on our company's key AI initiatives — which placed us #1 in Gartner's Vision and AI Enablement.</p>
+        <p>I lead the AI Products design team at Workato, spending the last three years directly partnering with execs, engineering and PM leads and being heads-down with my team on our company's key AI initiatives (We placed #1 in Gartner's Vision and AI Enablement, 2025 🎉)</p>
         <p>I care deeply about making complex systems legible to the people who have to trust them, grounding ambitious AI product bets in what's technically real, and growing designers into the kind of leaders a platform needs as it scales.</p>
-        <p class="dive-note">Here's a deeper dive into the two main AI initiatives 👇🏽</p>
+        <p class="dive-note">Here's a deeper dive into two of the AI initiatives I'm concurrently leading today👇🏽</p>
       </div>
     </div>
 
     <div class="project-list">
-      <a href="case-study-agent-builder.html" class="project-row project-row--link" aria-label="AI Agent Builder — view case study">
-        <div class="project-visual">
-          <img src="images/hero-agent-studio.png" alt="">
-        </div>
+      <a href="case-study-agent-builder.html" class="project-row project-row--link" aria-label="Agent Studio — view case study">
         <div class="project-copy">
-          <h3 class="project-title">AI Agent Builder</h3>
-          <p class="project-sub">Reshaping a platform built for human-authored workflows around agents that act on their own.</p>
+          <h3 class="project-title">Agent Studio: AI Agent Builder</h3>
+          <p class="project-sub">Building the platform for business users to build, test, deploy, and govern agents at scale</p>
           <div class="project-role">
             <span class="lbl">My role</span>
             <p>Drive strategic discussions and own design end to end<br>
-            Solo IC Design Lead → Player-Coach → Design Manager</p>
+            Solo IC → Player-Coach → Design Manager</p>
+          </div>
+          <div class="project-lifecycle">
+            <span class="lbl">Led project through</span>
+            <p>0 → Beta → GA → Continuous releases</p>
           </div>
           <div class="project-stats">
-            <div><div class="num">1→4</div><div class="lbl">Team scale</div></div>
-            <div><div class="num">3</div><div class="lbl">Timezones</div></div>
-            <div><div class="num dashed placeholder" title="Add an outcome metric">—</div><div class="lbl">Outcome</div></div>
+            <div><div class="num">82%</div><div class="lbl">Adoption</div></div>
+            <div><div class="num">1,471</div><div class="lbl">Active agents</div></div>
+            <div><div class="num">434</div><div class="lbl">Paying customers</div></div>
           </div>
-          <span class="cs-link-cta">View case study →</span>
+        </div>
+        <div class="project-visual">
+          <img src="images/hero-agent-studio.png" alt="Agent Studio builder interface">
         </div>
       </a>
 
       <article class="project-row project-row--static">
-        <div class="project-visual airo" aria-label="AIRO key screen placeholder"></div>
         <div class="project-copy">
-          <h3 class="project-title">AIRO — Gen AI Orchestration</h3>
-          <p class="project-sub">Tell AIRO the business process you want to solve, in plain language — it builds the workflow for you.</p>
+          <h3 class="project-title">AIRO: Gen AI Orchestration</h3>
+          <p class="project-sub">Assistant across the platform that plans, builds and monitors full business orchestrations with you</p>
           <div class="project-role">
             <span class="lbl">My role</span>
-            <p>Design lead for AIRO from concept to ship, and design governance across the AI platform.<br>
+            <p>Design lead end to end + design governance for AI features<br>
             Player-Coach → Design Manager</p>
           </div>
-          <div class="project-stats">
-            <div><div class="num">0→1</div><div class="lbl">Product built</div></div>
-            <div><div class="num">~6mo</div><div class="lbl">To ship</div></div>
-            <div><div class="num dashed placeholder" title="Add an outcome metric">—</div><div class="lbl">Outcome</div></div>
+          <div class="project-lifecycle">
+            <span class="lbl">Led project through</span>
+            <p>0 → Beta → GA <em>(coming soon!)</em></p>
           </div>
-          <a class="cs-link" href="#selected-work">View case study →</a>
+          <div class="project-stats project-stats--two">
+            <div><div class="num">517</div><div class="lbl">First customers</div></div>
+            <div><div class="num num--muted">To be updated post-GA</div><div class="lbl">Outcomes</div></div>
+          </div>
         </div>
+        <div class="project-visual airo" aria-label="AIRO key screen placeholder"></div>
       </article>
     </div>
   </section>
@@ -727,14 +771,14 @@
     <div class="about-layout">
       <div>
         <div class="about-bio">
-          <p>Design Manager, AI Products Lead at Workato since 2020.</p>
-          <p>Previously CXA and DBS Bank. Bachelor of Arts (Honours), Division of Industrial Design, National University of Singapore, with an exchange at ECAL, Switzerland. Co-inventor on a filed U.S. design patent.</p>
+          <p>Strong believer in “If you don't ask, you won't know”. It has definitely served me well from getting free food 😛, stumbling on the most random amazing experiences 🌄, to building great products 🤝</p>
+          <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this, focusing on shipping imperfectly! more to come~</p>
         </div>
-        <a class="btn" href="REPLACE-WITH-RESUME-LINK.pdf">Download résumé</a>
+        <a class="btn" href="REPLACE-WITH-CV-LINK.pdf">Download CV</a>
       </div>
       <div class="about-side">
         <p>Based in SF Bay Area. Say hi!</p>
-        <p style="margin-top:13px;">
+        <p class="about-side-link">
           <a class="linkedin" href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
         </p>
         <a class="email" href="mailto:ilianaishak@gmail.com">ilianaishak@gmail.com</a>
