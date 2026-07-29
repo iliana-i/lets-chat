@@ -320,6 +320,14 @@
   .hero-location .loc-chip:hover .loc-icon--sun{
     transform:rotate(22deg) scale(1.1);
   }
+  .hero .about-note{
+    margin-top:14px;
+    max-width:none;
+    width:100%;
+    font-size:12px;
+    color:#A1A1AA;
+    line-height:1.55;
+  }
   @media (prefers-reduced-motion: reduce){
     .hero-location .loc-icon{ transition:none; }
     .side-nav .nav-copy-email .copy-icon{ transition:none; }
@@ -560,8 +568,6 @@
   @media (max-width:700px){ .about-layout{ grid-template-columns:1fr; } }
 
   .about-bio{ font-size:17px; font-weight:400; color:var(--ink-soft); line-height:1.75; }
-  .about-bio p + p{ margin-top:0; }
-  .about-bio p + .about-note{ margin-top:14px; }
 
   .about-note{
     font-family:var(--mono);
@@ -697,6 +703,7 @@
             </span>
           </span>
         </p>
+        <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this, focusing on shipping imperfectly! more to come~</p>
       </div>
       <div class="hero-image">
         <img src="images/figma/hero-speaking.jpg" alt="Iliana Ishak speaking at a conference">
@@ -772,7 +779,6 @@
       <div>
         <div class="about-bio">
           <p>Strong believer in “If you don't ask, you won't know”. It has definitely served me well from getting free food 😛, stumbling on the most random amazing experiences 🌄, to building great products 🤝</p>
-          <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this, focusing on shipping imperfectly! more to come~</p>
         </div>
         <a class="btn" href="REPLACE-WITH-CV-LINK.pdf">Download CV</a>
       </div>
