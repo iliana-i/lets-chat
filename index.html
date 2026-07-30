@@ -216,27 +216,34 @@
     box-shadow:var(--shadow-frame);
   }
 
-  /* Hero */
+  /* Hero — Figma node 24:1246 */
+  section.hero{
+    padding-top:64px;
+    padding-bottom:81px;
+  }
   .hero{
-    min-height:min(88vh, 900px);
-    display:flex; flex-direction:column; justify-content:center;
-    padding-top:64px; padding-bottom:80px;
+    min-height:0;
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    padding:0;
   }
   .hero-grid{
-    display:grid;
-    grid-template-columns:minmax(0, 1.2fr) minmax(0, 1fr);
-    gap:64px;
+    display:flex;
     align-items:center;
+    gap:40px;
+  }
+  .hero-content{
+    flex:1 1 0;
+    min-width:0;
+    max-width:none;
+    padding-top:0;
   }
   @media (max-width:900px){
-    .hero{
-      min-height:0;
-      padding-top:40px;
-      padding-bottom:56px;
-    }
     .hero-grid{
-      grid-template-columns:1fr;
-      gap:32px;
+      flex-direction:column;
+      align-items:stretch;
+      gap:28px;
     }
     .hero-grid .hero-image{ order:-1; }
     .hero-grid .hero-content{ order:1; }
@@ -247,33 +254,43 @@
     font-weight:600;
     line-height:1.08;
     letter-spacing:-0.03em;
+    max-width:none;
   }
   .hero .role-lead{
     margin-top:22px;
     font-size:19px;
     font-weight:400;
     color:var(--ink);
-    max-width:36ch;
     line-height:1.5;
+    letter-spacing:-0.01em;
   }
   .hero .role-body{
     margin-top:14px;
-    font-size:17px;
+    font-size:19px;
     font-weight:400;
     color:var(--ink);
-    max-width:46ch;
-    line-height:1.65;
+    line-height:1.5;
+    letter-spacing:-0.01em;
     text-wrap:pretty;
   }
-  .hero .role-body strong{ font-weight:600; }
+  .hero .role-body strong{ font-weight:700; }
 
   .hero-stats{
     display:flex;
     flex-wrap:wrap;
     gap:40px;
     margin-top:28px;
+    align-items:flex-start;
+    max-width:100%;
   }
-  @media (max-width:520px){ .hero-stats{ flex-direction:column; gap:16px; } }
+  .hero-stats > div{
+    flex:1 1 0;
+    min-width:120px;
+  }
+  @media (max-width:520px){
+    .hero-stats{ flex-direction:column; gap:16px; }
+    .hero-stats > div{ flex:none; }
+  }
   .hero-stats .num{
     font-family:var(--display);
     font-size:24px;
@@ -286,20 +303,29 @@
     font-size:15px;
     color:var(--ink-soft);
     margin-top:2px;
-    max-width:12ch;
+    max-width:none;
     line-height:1.25;
+    letter-spacing:-0.01em;
   }
 
-  .hero-location{
+  .hero-meta-footer{
     margin-top:24px;
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    align-items:flex-start;
+  }
+  .hero-location{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:6px;
     font-family:var(--mono);
     font-size:13.5px;
     color:var(--ink-soft);
     line-height:1.6;
-    max-width:42ch;
+    letter-spacing:-0.01em;
   }
-  .hero-location .loc-line{ display:block; }
-  .hero-location .loc-line + .loc-line{ margin-top:2px; }
   .hero-location .loc-chip{
     display:inline-flex;
     align-items:center;
@@ -321,12 +347,14 @@
     transform:rotate(22deg) scale(1.1);
   }
   .hero .about-note{
-    margin-top:14px;
+    margin:0;
     max-width:none;
     width:100%;
-    font-size:12px;
-    color:#A1A1AA;
-    line-height:1.55;
+    font-family:var(--mono);
+    font-size:13.5px;
+    color:rgba(113,113,122,.6);
+    line-height:1.6;
+    letter-spacing:-0.01em;
   }
   @media (prefers-reduced-motion: reduce){
     .hero-location .loc-icon{ transition:none; }
@@ -336,8 +364,10 @@
   }
 
   .hero-image{
-    height:426px;
-    border-radius:var(--frame-radius);
+    flex:0 0 291px;
+    width:291px;
+    height:440px;
+    border-radius:12px;
     background:var(--paper-2);
     border:1px solid var(--line);
     box-shadow:var(--shadow-frame);
@@ -347,27 +377,26 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    object-position:center 22%;
+    object-position:76% 28%;
     display:block;
   }
   @media (max-width:900px){
     .hero-image{
+      flex:0 0 auto;
+      width:100%;
+      max-width:400px;
       height:auto;
-      aspect-ratio:16 / 11;
-      max-height:min(380px, 52vw);
+      aspect-ratio:291 / 440;
+      margin:0 auto;
     }
     .hero-image img{
-      object-position:center 18%;
+      object-position:76% 28%;
     }
   }
   @media (max-width:520px){
     .hero-image{
-      aspect-ratio:4 / 3;
-      max-height:none;
+      max-width:none;
       border-radius:var(--radius);
-    }
-    .hero-image img{
-      object-position:center 15%;
     }
   }
 
@@ -670,9 +699,9 @@
   <section class="hero" id="top">
     <div class="hero-grid">
       <div class="hero-content">
-        <h1>Product Design Leader, AI Products</h1>
+        <h1>Product Design Leader,<br>AI Products</h1>
         <p class="role-lead">I go deep into complexity so users don't have to.</p>
-        <p class="role-body"><strong>Right now:</strong> leading my team to ship at the pace AI evolves, whilst using design to bridge what it can't yet do.</p>
+        <p class="role-body"><strong>Right now</strong>: leading my team to ship at the pace AI evolves, whilst using design to bridge what it can't yet do.</p>
 
         <div class="hero-stats">
           <div>
@@ -689,21 +718,20 @@
           </div>
         </div>
 
-        <p class="hero-location">
-          <span class="loc-line">Currently in
+        <div class="hero-meta-footer">
+          <p class="hero-location">
             <span class="loc-chip">
               <svg class="loc-icon loc-icon--bridge" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17.75h20"/><path d="M5 17.75V9.25h3.25V17.75"/><path d="M6.15 11.5h1.35M6.15 13.75h1.35"/><path d="M15.25 16.75V8.5h3.25v8.25"/><path d="M16.4 11h1.35M16.4 13.25h1.35"/><path d="M2.75 17.75c3.6-6.2 6.85-8 8.75-8s5.15 1.8 8.75 8"/></svg>
               San Francisco Bay Area,
             </span>
-          </span>
-          <span class="loc-line">from
+            from
             <span class="loc-chip">
               <svg class="loc-icon loc-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.25" fill="currentColor"/><path fill="currentColor" d="M12 2.75a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0V3.6A.85.85 0 0 1 12 2.75zm0 15.1a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0v-2.15a.85.85 0 0 1 .85-.85zM3.6 11.15a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7H4.45a.85.85 0 0 1-.85-.85zm15.1 0a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7h-2.15a.85.85 0 0 1-.85-.85zM5.39 5.39a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2L5.4 6.6a.85.85 0 0 1 0-1.2zm11.9 11.9a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2l-1.52-1.52a.85.85 0 0 1 0-1.2zM5.39 18.61a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0zm11.9-11.9a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0z"/></svg>
               Singapore
             </span>
-          </span>
-        </p>
-        <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this, focusing on shipping imperfectly! more to come~</p>
+          </p>
+          <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this portfolio, focusing on shipping imperfectly! more to come~</p>
+        </div>
       </div>
       <div class="hero-image">
         <img src="images/figma/hero-speaking.jpg" alt="Iliana Ishak speaking at a conference">
