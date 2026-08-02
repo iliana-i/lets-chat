@@ -266,34 +266,29 @@
     max-width:56ch;
     line-height:1.6;
   }
-  .hero-meta{
-    margin-top:40px;
-    width:100%;
-    max-width:100%;
-    display:flex;
-    flex-wrap:nowrap;
-    align-items:flex-start;
-    gap:40px 56px;
+  .meta-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    column-gap:56px;
+    row-gap:8px;
+    align-items:baseline;
     font-family:var(--mono);
     font-size:13px;
     line-height:1.5;
     color:var(--ink-soft);
   }
-  .hero-meta div{
-    flex:0 1 auto;
-    max-width:none;
+  .hero-meta{
+    margin-top:24px;
   }
-  .hero-meta div:nth-child(2){ max-width:22em; }
-  .hero-meta div:nth-child(3){
-    margin-left:auto;
-    flex-shrink:0;
-    max-width:20em;
+  .meta-grid .k{
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    font-size:11px;
+    font-weight:500;
+    font-family:var(--body);
   }
-  .hero-meta .k{ text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); display:block; margin-bottom:4px; font-size:11px; font-weight:500; font-family:var(--body);}
-  @media (max-width:720px){
-    .hero-meta{ flex-wrap:wrap; }
-    .hero-meta div:nth-child(3){ margin-left:0; }
-  }
+  .meta-grid__v{ color:var(--ink-soft); }
 
   .hero-figure{
     margin-top:48px;
@@ -360,12 +355,35 @@
   .phase-outcomes-note{ margin-top:14px; color:var(--ink-soft); font-size:16px; line-height:1.65; }
 
   .cs-block{ margin-top:44px; }
+  #wip .cs-block,
+  #preview .cs-block{ margin-top:0; }
   .cs-block h3{
     font-family:var(--body); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
     color:var(--ink); margin-bottom:12px;
   }
+  .cs-block__lede{
+    color:var(--ink-soft);
+    font-size:16px;
+    line-height:1.65;
+    margin-bottom:4px;
+  }
   .cs-block p{ max-width:none; color:var(--ink-soft); font-size:16px; line-height:1.65; }
   .cs-block p + p{ margin-top:14px; }
+  .cs-block a{
+    color:var(--teal);
+    text-decoration:underline;
+    text-underline-offset:3px;
+  }
+  .cs-block a:hover{ color:var(--ink); }
+
+  .cs-block--preview .cs-block__lede{ margin-bottom:12px; }
+  .preview-stack{
+    display:flex;
+    flex-direction:column;
+    gap:36px;
+    margin-top:4px;
+  }
+  .preview-figure .figure-img{ margin-top:0; }
   .cs-block ol, .cs-block ul{ max-width:none; color:var(--ink-soft); font-size:17px; margin-top:10px; padding-left:22px; }
   .cs-block li + li{ margin-top:10px; }
   .cs-block li::marker{ color:var(--teal); font-family:var(--mono); }
@@ -638,8 +656,7 @@
 <div class="mobile-menu" id="mobileMenu">
   <a href="index.html" onclick="closeMenu()">← Back</a>
   <a href="#top" onclick="closeMenu()">Intro</a>
-  <a href="#phase-1" onclick="closeMenu()">Phase 1</a>
-  <a href="#phase-2" onclick="closeMenu()">Phase 2</a>
+  <a href="#preview" onclick="closeMenu()">Preview</a>
   <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer" class="ext">LinkedIn ↗</a>
   <a href="IlianaIshak_CV2026.pdf" class="ext cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
   <button type="button" class="mobile-copy-email ext copy-trigger" onclick="copyEmail(this); closeMenu();" aria-label="Copy email address">
@@ -662,8 +679,7 @@
     <div class="nav-links">
       <a href="index.html" class="nav-link--back">← Back</a>
       <a href="#top" class="nav-link">Intro</a>
-      <a href="#phase-1" class="nav-link">Phase 1</a>
-      <a href="#phase-2" class="nav-link">Phase 2</a>
+      <a href="#preview" class="nav-link">Preview</a>
     </div>
   </div>
   <div class="nav-external">
@@ -691,10 +707,13 @@
     <h1>AIRO: Gen AI orchestration across the platform</h1>
     <p class="cs-sub">How we built an assistant that plans, builds, and monitors full business automations with you—in plain language, inside the iPaaS Workato customers already trust.</p>
 
-    <div class="hero-meta">
-      <div><span class="k">Company</span>Workato</div>
-      <div><span class="k">Role</span>Design lead end to end + AI design governance; Player-coach → Design Manager</div>
-      <div><span class="k">Lifecycle</span>0 → Beta → GA <em>(coming soon)</em></div>
+    <div class="hero-meta meta-grid">
+      <span class="k">Company</span>
+      <span class="meta-grid__v">Workato</span>
+      <span class="k">Role</span>
+      <span class="meta-grid__v">Design lead end to end + AI design governance; Player-coach → Design Manager</span>
+      <span class="k">Lifecycle</span>
+      <span class="meta-grid__v">0 → Beta → GA <em>(coming soon)</em></span>
     </div>
 
     <div class="hero-figure">
@@ -702,92 +721,63 @@
     </div>
   </section>
 
-  <!-- PHASE 1 -->
-  <section id="phase-1">
-    <div class="phase-header">
-      <span class="phase-tag">Phase 1</span>
-    </div>
-    <h2 class="phase-title">Ship a Gen AI copilot that turns plain language into production orchestrations</h2>
-
-    <div class="meta-row">
-      <div><span class="k">Role</span><span class="v">Design lead end to end, player-coach</span></div>
-      <div><span class="k">Stakeholders</span><span class="v">PM director, platform &amp; AI eng leads, solutions architects</span></div>
-      <div><span class="k">Timeline</span><span class="v">Concept to first customers</span></div>
-    </div>
-
-    <div class="phase-outcomes">
-      <h3>Outcomes</h3>
-      <div class="stat-row">
-        <div class="stat"><div class="num">517</div><div class="lbl">First customers</div></div>
-      </div>
-    </div>
-
+  <!-- WIP -->
+  <section id="wip">
     <div class="cs-block">
-      <h3>The ask</h3>
-      <p>Alongside Agent Studio, Workato needed a second AI flagship: a Gen AI assistant embedded across the platform that could help builders describe a business process in natural language and get a working orchestration—planning steps, generating recipes, and monitoring runs—without breaking the patterns, connections, and enterprise guardrails the core product was built on.</p>
-      <p>My job: lead design end to end for AIRO, set interaction patterns for Gen AI across the platform, and ship a 0→1 experience fast enough to put in front of early adopters while the underlying AI capabilities were still evolving weekly.</p>
-      <p class="placeholder" title="Add more context on how AIRO relates to Agent Studio">[Add: how AIRO complements Agent Studio — orchestration copilot vs. agent builder — and where the two products meet in the customer journey]</p>
-    </div>
-
-    <div class="cs-block">
-      <h3>What we delivered</h3>
-      <div class="figure-img" style="margin-top:12px;">
-        <img src="images/hero-airo.png" alt="AIRO assistant planning and building a business orchestration">
-      </div>
-      <p class="figure-cap">AIRO as an in-platform assistant for planning, building, and monitoring orchestrations.</p>
-      <p class="placeholder" title="Add before/after or key flow screenshots">[Add: core flows — describe intent → plan → build → monitor — with screenshots]</p>
-    </div>
-
-    <div class="cs-block">
-      <h3>What I'm proud of</h3>
-      <ul>
-        <li><strong>Design governance for AI:</strong> Established shared patterns for Gen AI surfaces across the platform so AIRO and other AI features felt coherent, not one-off experiments.</li>
-        <li><strong>Plain language, real recipes:</strong> Bridged conversational UX with Workato's deterministic recipe model—helping users trust what AIRO generated without hiding complexity they still needed to audit.</li>
-        <li><strong>Parallel bets, one team:</strong> Led AIRO while growing the AI design team and partnering on <a href="case-study-agent-builder.html" style="text-decoration:underline;">Agent Studio</a>—balancing speed on two flagship initiatives without splitting quality.</li>
-      </ul>
-      <p class="placeholder" title="Add more proud-of bullets">[Add: specific hard calls, research insights, or cross-functional wins from the 0→1 build]</p>
+      <p class="cs-block__lede">Still putting this one together — more soon!</p>
+      <p>The full write-up isn't ready yet. Below is an early look at the product and some of the design work so far. To learn more about AIRO, see <a href="https://www.workato.com/platform/airo" target="_blank" rel="noopener noreferrer">Workato's overview</a>.</p>
+      <p>For my parallel work on Agent Studio, see the <a href="case-study-agent-builder.html">Agent Studio case study</a>.</p>
     </div>
   </section>
 
-  <!-- PHASE 2 -->
-  <section id="phase-2">
-    <div class="phase-header">
-      <span class="phase-tag">Phase 2</span>
-    </div>
-    <h2 class="phase-title">Move from early access to platform-wide GA</h2>
-
-    <div class="meta-row">
-      <div><span class="k">Role</span><span class="v">Design manager; AI design governance across platform</span></div>
-      <div><span class="k">Stakeholders</span><span class="v">PM director managing 3 PMs</span></div>
-      <div><span class="k">Timeline</span><span class="v">Beta → GA (in progress)</span></div>
-    </div>
-
-    <div class="phase-outcomes">
-      <h3>Outcomes</h3>
-      <p class="placeholder" title="Add post-GA metrics when available">[Add: adoption, usage, and business metrics after GA — to be updated post-launch]</p>
-    </div>
-
-    <div class="cs-block">
-      <h3>The ask</h3>
-      <p>With 517 customers on early access, the next chapter is making AIRO enterprise-ready at scale: deeper monitoring and debugging, tighter governance, clearer mental models for when to use AIRO vs. build manually, and a GA experience that matches Workato's bar for security and admin control.</p>
-    </div>
-
-    <div class="cs-block">
-      <h3>What we delivered</h3>
-      <div class="figure">
-        <span class="placeholder" title="Add screenshots from Beta → GA work">[Add: key screens and flows shipping toward GA — monitoring, plan review, admin controls, etc.]</span>
+  <!-- PREVIEW -->
+  <section id="preview">
+    <div class="cs-block cs-block--preview">
+      <p class="cs-block__lede">Sneak peek at AIRO so far</p>
+      <div class="preview-stack">
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/1 homepage.png" alt="AIRO homepage with Ask, Find, Build prompt and suggested starting points">
+          </div>
+          <figcaption class="figure-cap">AIRO homepage — ask, find, and build from a single starting point.</figcaption>
+        </figure>
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/2 across the platform.png" alt="AIRO assistant panel open within an Order Fulfillment project in Workato">
+          </div>
+          <figcaption class="figure-cap">AIRO embedded across the platform, in context of whatever you're working on.</figcaption>
+        </figure>
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/3 fullscreen mode.png" alt="AIRO fullscreen chat analyzing an Order Fulfillment business process">
+          </div>
+          <figcaption class="figure-cap">Fullscreen mode for longer conversations and deeper process analysis.</figcaption>
+        </figure>
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/4 post it process.png" alt="AIRO requirements summary with numbered post-it cards for an employee onboarding blueprint">
+          </div>
+          <figcaption class="figure-cap">From plain-language requirements to a structured blueprint summary.</figcaption>
+        </figure>
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/5 asset map unselected.png" alt="Blueprint builder showing recipes, APIs, and Genies to build for employee onboarding">
+          </div>
+          <figcaption class="figure-cap">Blueprint builder — visual map of the system of assets to build for your business process.</figcaption>
+        </figure>
+        <figure class="preview-figure">
+          <div class="figure-img">
+            <img src="images/AIRO/6 asset map selected.png" alt="Blueprint builder with a recipe selected and AIRO explaining what it does">
+          </div>
+          <figcaption class="figure-cap">Select any asset on the map and AIRO explains what it does before you build.</figcaption>
+        </figure>
       </div>
-    </div>
-
-    <div class="cs-block">
-      <h3>What I'm proud of</h3>
-      <p class="placeholder" title="Add what you're proud of for GA phase">[Add: what you're proud of as AIRO moves toward GA — team growth, standards set, hard calls made]</p>
     </div>
   </section>
 
   <footer>
     <span>© 2026 Iliana Ishak</span>
-    <a href="index.html#selected-work">← Back to portfolio</a>
+    <a href="index.html#selected-work">← Back</a>
   </footer>
 
 </div>
@@ -820,7 +810,7 @@
   function closeMenu(){ document.getElementById('mobileMenu').classList.remove('open'); }
 
   const navLinks = document.querySelectorAll('.nav-links .nav-link');
-  const sectionIds = ['#top', '#phase-1', '#phase-2'];
+  const sectionIds = ['#top', '#wip', '#preview'];
   const sections = sectionIds.map(function(id){ return document.querySelector(id); });
   function updateActive(){
     var idx = 0;

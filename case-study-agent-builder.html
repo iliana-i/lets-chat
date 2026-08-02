@@ -215,12 +215,13 @@
 
   .eyebrow{
     font-family:var(--body);
-    font-size:12px;
+    font-size:11px;
     font-weight:500;
-    letter-spacing:.04em;
+    letter-spacing:.08em;
     text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-bottom:14px;
+    color:#A1A1AA;
+    line-height:1.4;
+    margin-bottom:8px;
     display:block;
   }
 
@@ -307,21 +308,7 @@
   }
 
   /* ---------- Phase blocks ---------- */
-  .phase-header{ display:flex; align-items:baseline; gap:16px; flex-wrap:wrap; margin-bottom:8px;}
-  .phase-tag{
-    font-family:var(--body);
-    font-size:12px;
-    font-weight:500;
-    letter-spacing:.03em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    background:var(--surface);
-    padding:5px 12px;
-    border-radius:8px;
-    border:1px solid var(--line);
-    box-shadow:var(--shadow-frame);
-  }
-  h2.phase-title{ font-size:clamp(24px,3.6vw,32px); font-weight:600; margin-top:6px; line-height:1.15; letter-spacing:-0.025em; }
+  h2.phase-title{ font-size:clamp(24px,3.6vw,32px); font-weight:600; margin-top:0; line-height:1.15; letter-spacing:-0.025em; }
 
   .meta-row{
     margin-top:32px;
@@ -329,7 +316,7 @@
 
   .phase-outcomes{ margin-top:28px; }
   .delivered-outcomes{ margin-bottom:28px; }
-  .delivered-outcomes .cs-block__lede{ margin-bottom:8px; }
+  .delivered-outcomes .cs-block__lede{ margin-bottom:12px; }
   .delivered-outcomes .stat-row{ margin-top:0; }
   .delivered-outcomes .stat-grid{ margin-top:0; }
   .phase-outcomes h3{
@@ -388,9 +375,14 @@
     font-family:var(--body); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
     color:var(--ink); margin-bottom:12px;
   }
-  .cs-block--delivered h3{ margin-bottom:12px; }
+  .cs-block--delivered h3{ margin-bottom:20px; }
   .cs-block--delivered .compare-row,
   .cs-block--delivered .figure-img{ margin-top:0; }
+  .cs-block--delivered .compare-row{
+    width:100%;
+    max-width:none;
+    margin-left:0;
+  }
   .cs-block__lede{
     color:var(--ink-soft);
     font-size:16px;
@@ -407,6 +399,13 @@
     display:flex; gap:40px; flex-wrap:wrap; margin-top:36px;
   }
   .stat{ min-width:140px; }
+  .stat--inline{
+    display:flex;
+    align-items:flex-end;
+    gap:12px;
+    min-width:0;
+  }
+  .stat--inline .lbl{ margin-top:0; padding-bottom:3px; }
   .stat .num{ font-family:var(--display); font-size:28px; font-weight:600; letter-spacing:-0.02em; color:var(--ink); line-height:1.15;}
   .stat .lbl{ font-family:var(--body); font-size:11px; font-weight:500; color:var(--ink-soft); margin-top:4px; text-transform:uppercase; letter-spacing:.04em;}
 
@@ -456,7 +455,7 @@
   .compare-item{
     display:flex;
     flex-direction:column;
-    align-items:center;
+    align-items:flex-start;
   }
   .compare-item .compare-label{
     font-family:var(--body);
@@ -466,7 +465,7 @@
     letter-spacing:.04em;
     color:var(--ink-soft);
     margin-top:12px;
-    text-align:center;
+    text-align:left;
     width:100%;
   }
   .compare-item .figure-img{ margin-top:0; width:100%; }
@@ -499,15 +498,13 @@
     display:flex;
     flex-direction:column;
     min-height:0;
-    padding:20px 18px 0;
+    padding:16px 18px 0;
     border-right:1px solid var(--line);
     border-bottom:1px solid var(--line);
     background:var(--paper);
     overflow:hidden;
     transition:background-color .28s ease;
   }
-  .feature-bento > .feature-cell:nth-child(-n+2) .feature-sub{ min-height:4.65em; }
-  .feature-bento > .feature-cell:nth-child(n+3) .feature-sub{ min-height:3.1em; }
   .feature-bento > .feature-cell:nth-child(even){ border-right:none; }
   .feature-bento > .feature-cell:nth-child(n+3){ border-bottom:none; }
 
@@ -528,15 +525,16 @@
     font-weight:400;
     color:var(--ink-soft);
     line-height:1.55;
-    max-width:36ch;
+    max-width:none;
     margin-bottom:0;
+    padding-bottom:4px;
   }
 
   .feature-cell__media{
     position:relative;
-    margin-top:12px;
+    margin-top:16px;
     flex:1 1 auto;
-    min-height:168px;
+    min-height:120px;
     padding:0 12px 0;
     overflow:visible;
     display:flex;
@@ -557,7 +555,7 @@
   .feature-cell__media--stack{
     align-items:flex-end;
     justify-content:stretch;
-    min-height:180px;
+    min-height:168px;
   }
   .feature-cell__media--stack .figure-img{
     position:absolute;
@@ -739,9 +737,7 @@
 
   <!-- PHASE 1 -->
   <section id="phase-1">
-    <div class="phase-header">
-      <span class="phase-tag">Phase 1</span>
-    </div>
+    <p class="eyebrow">Phase 1</p>
     <h2 class="phase-title">Translate a hacked demo into an actual builder UI, to launch 0→1 in 2 months</h2>
 
     <div class="meta-row meta-grid">
@@ -769,7 +765,7 @@
       <h3>What we delivered</h3>
       <div class="delivered-outcomes">
         <div class="stat-row">
-          <div class="stat">
+          <div class="stat stat--inline">
             <div class="num">100</div>
             <div class="lbl">Customers in first launch</div>
           </div>
@@ -805,9 +801,7 @@
 
   <!-- PHASE 2 -->
   <section id="phase-2">
-    <div class="phase-header">
-      <span class="phase-tag">Phase 2</span>
-    </div>
+    <p class="eyebrow">Phase 2</p>
     <h2 class="phase-title">Flesh out the initial agent builder into a full-fledged, enterprise-ready platform</h2>
 
     <div class="meta-row meta-grid">
@@ -873,7 +867,7 @@
 
         <article class="feature-cell">
           <h4>Expanded LLM options</h4>
-          <p class="feature-sub">Letting customers choose or bring the model that best fits their cost, latency, or compliance needs.</p>
+          <p class="feature-sub">Letting customers choose or bring the model that best fits their needs.</p>
           <div class="feature-cell__media feature-cell__media--single">
             <div class="figure-img"><img src="images/llm-options.jpg" alt="LLM selection and bring-your-own-LLM settings"></div>
           </div>
