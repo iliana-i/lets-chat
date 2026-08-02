@@ -261,40 +261,34 @@
     padding:0;
   }
   .hero-grid{
-    display:flex;
-    align-items:center;
+    display:grid;
+    grid-template-columns:1fr 291px;
     gap:40px;
+    align-items:center;
   }
-  .hero-content{
-    flex:1 1 0;
-    min-width:0;
-    max-width:none;
-    padding-top:0;
-  }
-  @media (min-width:901px){
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1fr 291px;
-      gap:40px;
-      align-items:center;
-    }
-    .hero-content{ display:contents; }
-    .hero-content > :not(.hero-image){ grid-column:1; }
-    .hero-image{
-      grid-column:2;
-      grid-row:1 / span 20;
-      align-self:center;
-    }
+  .hero-copy-block{ grid-column:1; grid-row:1; }
+  .hero-meta-footer{ grid-column:1; grid-row:2; }
+  .hero-image{
+    grid-column:2;
+    grid-row:1 / span 2;
+    align-self:center;
   }
   @media (max-width:900px){
     .hero-grid{
+      display:flex;
       flex-direction:column;
       align-items:stretch;
       gap:0;
     }
-    .hero-content{
-      display:flex;
-      flex-direction:column;
+    .hero-copy-block,
+    .hero-meta-footer,
+    .hero-image{
+      grid-column:auto;
+      grid-row:auto;
+    }
+    .hero-image{
+      align-self:stretch;
+      margin:24px 0;
     }
   }
 
@@ -432,14 +426,11 @@
   @media (max-width:900px){
     .hero-image{
       flex:0 0 auto;
-      width:calc(100% + 48px);
+      width:100%;
       max-width:none;
-      margin:24px 0 24px -24px;
       height:auto;
       aspect-ratio:16 / 10;
-      border-radius:0;
-      border-left:none;
-      border-right:none;
+      border-radius:12px;
     }
     .hero-image img{
       object-position:76% 28%;
@@ -523,18 +514,14 @@
     width:100%;
     height:100%;
     object-fit:cover;
-    object-position:center top;
+    object-position:center center;
     display:block;
     transform:scale(1);
-    transform-origin:50% 100%;
+    transform-origin:50% 50%;
     transition:transform .55s cubic-bezier(.22, 1, .36, 1);
   }
   a.project-row--link:hover .project-visual img{
     transform:scale(1.025);
-  }
-  .project-visual.airo img{
-    object-fit:contain;
-    object-position:center center;
   }
 
   .project-copy{ display:flex; flex-direction:column; gap:10px; padding-top:8px; }
@@ -633,62 +620,32 @@
   .about-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:28px 40px;
+    column-gap:40px;
     align-items:start;
   }
-  .about-eyebrow{ grid-column:1; grid-row:1; }
-  .about-headline{
-    grid-column:1;
-    grid-row:2;
+  .about-left{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+  }
+  .about-left .about-headline{
     margin-top:22px;
     margin-bottom:0;
   }
-  .about-main{ grid-column:1; grid-row:3; margin-top:4px; }
-  .about-photo{
-    grid-column:2;
-    grid-row:1 / span 3;
-    align-self:start;
-    border-radius:var(--frame-radius);
-    overflow:hidden;
-    border:1px solid var(--line);
-    box-shadow:var(--shadow-frame);
-    background:var(--paper-2);
-  }
-  @media (max-width:700px){
-    .about-grid{
-      grid-template-columns:1fr;
-      gap:28px;
-    }
-    .about-eyebrow,
-    .about-headline,
-    .about-main,
-    .about-photo{
-      grid-column:1;
-      grid-row:auto;
-    }
-    .about-photo{
-      width:calc(100% + 48px);
-      margin-left:-24px;
-      border-radius:0;
-      border-left:none;
-      border-right:none;
-    }
-  }
-
-  .about-bio{ font-size:17px; font-weight:400; color:var(--ink-soft); line-height:1.75; }
-  .about-bio .about-location-line{
-    margin-top:14px;
-    color:var(--ink-soft);
-  }
+  .about-main{ margin-top:28px; }
 
   .about-contact{
     display:flex;
-    flex-wrap:nowrap;
+    flex-wrap:wrap;
     align-items:center;
     gap:16px 24px;
     margin-top:20px;
   }
-  @media (max-width:520px){ .about-contact{ flex-wrap:wrap; } }
+  @media (max-width:640px){
+    .about-contact .about-copy-email{
+      flex-basis:100%;
+    }
+  }
   .about-contact a,
   .about-contact .about-copy-email{
     font-family:var(--mono);
@@ -709,6 +666,23 @@
     display:inline-flex;
     align-items:center;
     gap:6px;
+  }
+  .about-bio{ font-size:17px; font-weight:400; color:var(--ink-soft); line-height:1.75; }
+  .about-bio .about-location-line{
+    margin-top:14px;
+    color:var(--ink-soft);
+  }
+
+  .about-photo{
+    border-radius:var(--frame-radius);
+    overflow:hidden;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow-frame);
+    background:var(--paper-2);
+  }
+  @media (max-width:700px){
+    .about-grid{ grid-template-columns:1fr; }
+    .about-photo{ margin-top:28px; }
   }
   .about-contact .about-copy-email.copied{ border-color:var(--teal); color:var(--ink); }
   .about-contact .about-copy-email .copy-icon{
@@ -813,7 +787,7 @@
 
   <section class="hero" id="top">
     <div class="hero-grid">
-      <div class="hero-content">
+      <div class="hero-copy-block">
         <h1>Product Design Leader,<br>AI Products</h1>
         <p class="role-lead">I go deep into complexity so users don't have to.</p>
         <p class="role-body"><strong>Right now</strong>: leading my team to ship at the pace AI evolves, whilst using design to bridge what it can't yet do.</p>
@@ -832,25 +806,25 @@
             <div class="lbl">years managing junior - senior designers</div>
           </div>
         </div>
+      </div>
 
-        <div class="hero-image">
-          <img src="images/figma/hero-speaking.jpg" alt="Iliana Ishak speaking at a conference">
-        </div>
+      <div class="hero-image">
+        <img src="images/figma/hero-speaking.jpg" alt="Iliana Ishak speaking at a conference">
+      </div>
 
-        <div class="hero-meta-footer">
-          <p class="hero-location">
-            <span class="loc-chip">
-              <svg class="loc-icon loc-icon--bridge" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17.75h20"/><path d="M5 17.75V9.25h3.25V17.75"/><path d="M6.15 11.5h1.35M6.15 13.75h1.35"/><path d="M15.25 16.75V8.5h3.25v8.25"/><path d="M16.4 11h1.35M16.4 13.25h1.35"/><path d="M2.75 17.75c3.6-6.2 6.85-8 8.75-8s5.15 1.8 8.75 8"/></svg>
-              San Francisco Bay Area,
-            </span>
-            from
-            <span class="loc-chip">
-              <svg class="loc-icon loc-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.25" fill="currentColor"/><path fill="currentColor" d="M12 2.75a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0V3.6A.85.85 0 0 1 12 2.75zm0 15.1a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0v-2.15a.85.85 0 0 1 .85-.85zM3.6 11.15a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7H4.45a.85.85 0 0 1-.85-.85zm15.1 0a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7h-2.15a.85.85 0 0 1-.85-.85zM5.39 5.39a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2L5.4 6.6a.85.85 0 0 1 0-1.2zm11.9 11.9a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2l-1.52-1.52a.85.85 0 0 1 0-1.2zM5.39 18.61a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0zm11.9-11.9a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0z"/></svg>
-              Singapore
-            </span>
-          </p>
-          <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this portfolio, focusing on shipping imperfectly! more to come~</p>
-        </div>
+      <div class="hero-meta-footer">
+        <p class="hero-location">
+          <span class="loc-chip">
+            <svg class="loc-icon loc-icon--bridge" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 17.75h20"/><path d="M5 17.75V9.25h3.25V17.75"/><path d="M6.15 11.5h1.35M6.15 13.75h1.35"/><path d="M15.25 16.75V8.5h3.25v8.25"/><path d="M16.4 11h1.35M16.4 13.25h1.35"/><path d="M2.75 17.75c3.6-6.2 6.85-8 8.75-8s5.15 1.8 8.75 8"/></svg>
+            San Francisco Bay Area,
+          </span>
+          from
+          <span class="loc-chip">
+            <svg class="loc-icon loc-icon--sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.25" fill="currentColor"/><path fill="currentColor" d="M12 2.75a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0V3.6A.85.85 0 0 1 12 2.75zm0 15.1a.85.85 0 0 1 .85.85v2.15a.85.85 0 1 1-1.7 0v-2.15a.85.85 0 0 1 .85-.85zM3.6 11.15a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7H4.45a.85.85 0 0 1-.85-.85zm15.1 0a.85.85 0 0 1 .85-.85h2.15a.85.85 0 1 1 0 1.7h-2.15a.85.85 0 0 1-.85-.85zM5.39 5.39a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2L5.4 6.6a.85.85 0 0 1 0-1.2zm11.9 11.9a.85.85 0 0 1 1.2 0l1.52 1.52a.85.85 0 1 1-1.2 1.2l-1.52-1.52a.85.85 0 0 1 0-1.2zM5.39 18.61a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0zm11.9-11.9a.85.85 0 0 1 0-1.2l1.52-1.52a.85.85 0 1 1 1.2 1.2l-1.52 1.52a.85.85 0 0 1-1.2 0z"/></svg>
+            Singapore
+          </span>
+        </p>
+        <p class="about-note">Cursor, Claude code and I spent a tinyyy bit of our free time building this portfolio, focusing on shipping imperfectly! more to come~</p>
       </div>
     </div>
   </section>
@@ -920,28 +894,30 @@
 
   <section class="about" id="about">
     <div class="about-grid">
-      <p class="eyebrow about-eyebrow">About</p>
-      <h2 class="section-headline section-headline--uniform about-headline">Iliana Ishak</h2>
-      <div class="about-main">
-        <div class="about-bio">
-          <p>Strong believer in “If you don't ask, you won't know”. It has definitely served me well from getting extra food 😛, stumbling on the most random amazing experiences 🌄, to building great products 🤝</p>
-          <p class="about-location-line">Based in SF Bay Area. Say hi!</p>
-        </div>
-        <div class="about-contact">
-          <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-          <a href="IlianaIshak_CV2026.pdf" class="cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
-          <button type="button" class="about-copy-email copy-trigger" onclick="copyEmail(this)" aria-label="Copy email address">
-            <span class="copy-label">ilianaishak@gmail.com</span>
-            <span class="copy-icon-slot" aria-hidden="true">
-              <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="9" y="9" width="11" height="11" rx="2"/>
-                <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
-              </svg>
-              <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 6L9 17l-5-5"/>
-              </svg>
-            </span>
-          </button>
+      <div class="about-left">
+        <p class="eyebrow">About</p>
+        <h2 class="section-headline section-headline--uniform about-headline">Iliana Ishak</h2>
+        <div class="about-main">
+          <div class="about-bio">
+            <p>Strong believer in “If you don't ask, you won't know”. It has definitely served me well from getting extra food 😛, stumbling on the most random amazing experiences 🌄, to building great products 🤝</p>
+            <p class="about-location-line">Based in SF Bay Area. Say hi!</p>
+          </div>
+          <div class="about-contact">
+            <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a href="IlianaIshak_CV2026.pdf" class="cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
+            <button type="button" class="about-copy-email copy-trigger" onclick="copyEmail(this)" aria-label="Copy email address">
+              <span class="copy-label">ilianaishak@gmail.com</span>
+              <span class="copy-icon-slot" aria-hidden="true">
+                <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="11" height="11" rx="2"/>
+                  <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
+                </svg>
+                <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 6L9 17l-5-5"/>
+                </svg>
+              </span>
+            </button>
+          </div>
         </div>
       </div>
       <div class="about-photo">

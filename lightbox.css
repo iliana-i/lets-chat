@@ -45,16 +45,25 @@
   top:20px;
   right:24px;
   z-index:1001;
-  font-family:'IBM Plex Mono', monospace;
-  font-size:14px;
-  color:#F1EFE9;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:40px;
+  padding:0;
+  color:#fff;
   background:none;
   border:none;
+  border-radius:10px;
   cursor:pointer;
-  padding:8px 12px;
-  border-radius:4px;
+  transition:background-color .15s ease;
 }
-.image-lightbox__close:hover{ background:rgba(255,255,255,.08); }
+.image-lightbox__close svg{
+  width:20px;
+  height:20px;
+  flex-shrink:0;
+}
+.image-lightbox__close:hover{ background:rgba(108,116,132,.55); }
 
 .is-expandable{
   cursor:zoom-in;

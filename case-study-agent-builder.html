@@ -208,7 +208,7 @@
 
   section{
     position:relative;
-    padding:80px 0;
+    padding:56px 0;
     border-bottom:1px solid var(--line);
   }
   section:last-of-type{border-bottom:none;}
@@ -262,38 +262,33 @@
     font-style:normal;
     font-size:clamp(17px,2.2vw,19px);
     color:var(--ink-soft);
-    margin-top:20px;
+    margin-top:32px;
     max-width:56ch;
     line-height:1.6;
   }
-  .hero-meta{
-    margin-top:40px;
-    width:100%;
-    max-width:100%;
-    display:flex;
-    flex-wrap:nowrap;
-    align-items:flex-start;
-    gap:40px 56px;
+  .meta-grid{
+    display:grid;
+    grid-template-columns:auto 1fr;
+    column-gap:56px;
+    row-gap:8px;
+    align-items:baseline;
     font-family:var(--mono);
     font-size:13px;
     line-height:1.5;
     color:var(--ink-soft);
   }
-  .hero-meta div{
-    flex:0 1 auto;
-    max-width:none;
+  .hero-meta{
+    margin-top:24px;
   }
-  .hero-meta div:nth-child(2){ max-width:22em; }
-  .hero-meta div:nth-child(3){
-    margin-left:auto;
-    flex-shrink:0;
-    max-width:20em;
+  .meta-grid .k{
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--ink-soft);
+    font-size:11px;
+    font-weight:500;
+    font-family:var(--body);
   }
-  .hero-meta .k{ text-transform:uppercase; letter-spacing:.04em; color:var(--ink-soft); display:block; margin-bottom:4px; font-size:11px; font-weight:500; font-family:var(--body);}
-  @media (max-width:720px){
-    .hero-meta{ flex-wrap:wrap; }
-    .hero-meta div:nth-child(3){ margin-left:0; }
-  }
+  .meta-grid__v{ color:var(--ink-soft); }
 
   .hero-figure{
     margin-top:48px;
@@ -330,39 +325,77 @@
 
   .meta-row{
     margin-top:32px;
-    display:flex;
-    gap:32px;
-    flex-wrap:wrap;
-    font-family:var(--mono);
-    font-size:13px;
-    color:var(--ink-soft);
   }
-  .meta-row > div{ max-width:200px; }
-  .meta-row .k{
-    text-transform:uppercase;
-    letter-spacing:.04em;
-    color:var(--ink-soft);
-    display:block;
-    margin-bottom:4px;
-    font-size:11px;
-    font-weight:500;
-    font-family:var(--body);
-  }
-  .meta-row .v{ font-family:inherit; font-size:inherit; color:inherit; line-height:1.5; }
 
   .phase-outcomes{ margin-top:28px; }
+  .delivered-outcomes{ margin-bottom:28px; }
+  .delivered-outcomes .cs-block__lede{ margin-bottom:8px; }
+  .delivered-outcomes .stat-row{ margin-top:0; }
+  .delivered-outcomes .stat-grid{ margin-top:0; }
   .phase-outcomes h3{
     font-family:var(--body); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
-    color:var(--ink); margin-bottom:12px;
+    color:var(--ink); margin-bottom:8px;
   }
-  .phase-outcomes > p{ color:var(--ink-soft); font-size:16px; line-height:1.65; }
+  .phase-outcomes > p{ color:var(--ink-soft); font-size:16px; line-height:1.65; margin-bottom:4px; }
+  .outcome-highlight{
+    display:flex;
+    align-items:center;
+    gap:40px;
+  }
+  .outcome-highlight .stat{
+    min-width:120px;
+    flex-shrink:0;
+  }
+  .outcome-highlight .phase-outcomes-note{
+    margin-top:0;
+    font-size:15px;
+    line-height:1.55;
+    max-width:44ch;
+  }
   .phase-outcomes .stat-row{ margin-top:16px; }
+  .delivered-outcomes .stat-grid,
+  .phase-outcomes .stat-grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(140px, auto));
+    gap:16px 40px;
+    margin-top:16px;
+  }
+  .delivered-outcomes .stat-grid{ margin-top:0; }
+  .delivered-outcomes .stat-grid .stat,
+  .phase-outcomes .stat-grid .stat{ min-width:0; }
+  .delivered-outcomes .stat-grid .stat:nth-child(1),
+  .phase-outcomes .stat-grid .stat:nth-child(1){ grid-column:1; grid-row:1; }
+  .delivered-outcomes .stat-grid .stat:nth-child(2),
+  .phase-outcomes .stat-grid .stat:nth-child(2){ grid-column:2; grid-row:1; }
+  .delivered-outcomes .stat-grid .stat:nth-child(3),
+  .phase-outcomes .stat-grid .stat:nth-child(3){ grid-column:1; grid-row:2; }
+  .delivered-outcomes .stat-grid .stat:nth-child(4),
+  .phase-outcomes .stat-grid .stat:nth-child(4){ grid-column:2; grid-row:2; }
+  .delivered-outcomes .stat-grid .stat:nth-child(5),
+  .phase-outcomes .stat-grid .stat:nth-child(5){ grid-column:3; grid-row:2; }
   .phase-outcomes-note{ margin-top:14px; color:var(--ink-soft); font-size:16px; line-height:1.65; }
+  @media (max-width:720px){
+    .outcome-highlight{
+      flex-direction:column;
+      align-items:flex-start;
+      gap:12px;
+    }
+    .outcome-highlight .phase-outcomes-note{ max-width:none; }
+  }
 
   .cs-block{ margin-top:44px; }
   .cs-block h3{
     font-family:var(--body); font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;
     color:var(--ink); margin-bottom:12px;
+  }
+  .cs-block--delivered h3{ margin-bottom:12px; }
+  .cs-block--delivered .compare-row,
+  .cs-block--delivered .figure-img{ margin-top:0; }
+  .cs-block__lede{
+    color:var(--ink-soft);
+    font-size:16px;
+    line-height:1.65;
+    margin-bottom:4px;
   }
   .cs-block p{ max-width:none; color:var(--ink-soft); font-size:16px; line-height:1.65; }
   .cs-block p + p{ margin-top:14px; }
@@ -450,6 +483,7 @@
 
   /* ---------- Feature bento (Raindrop-style grid) ---------- */
   .cs-block--features{ margin-top:44px; }
+  .cs-block--features .cs-block__lede{ margin-bottom:12px; }
   .cs-block--features .feature-bento{ margin-top:2px; }
 
   .feature-bento{
@@ -472,9 +506,7 @@
     overflow:hidden;
     transition:background-color .28s ease;
   }
-  .feature-bento > .feature-cell:nth-child(-n+2) h4{ min-height:2.55em; }
   .feature-bento > .feature-cell:nth-child(-n+2) .feature-sub{ min-height:4.65em; }
-  .feature-bento > .feature-cell:nth-child(n+3) h4{ min-height:2.55em; }
   .feature-bento > .feature-cell:nth-child(n+3) .feature-sub{ min-height:3.1em; }
   .feature-bento > .feature-cell:nth-child(even){ border-right:none; }
   .feature-bento > .feature-cell:nth-child(n+3){ border-bottom:none; }
@@ -691,10 +723,13 @@
     <h1>AI Agent Builder: from zero to enterprise platform</h1>
     <p class="cs-sub">How we went from an agent conversation demo with <em>no builder UI</em> to a full-fledged agent ecosystem that lets business users build, deploy, manage, and govern agents at scale.</p>
 
-    <div class="hero-meta">
-      <div><span class="k">Company</span>Workato</div>
-      <div><span class="k">Role</span>Design Lead: Solo IC → Player-coach → Team of 3+</div>
-      <div><span class="k">Lifecycle</span>0 → Beta → GA → Continuous releases</div>
+    <div class="hero-meta meta-grid">
+      <span class="k">Company</span>
+      <span class="meta-grid__v">Workato</span>
+      <span class="k">Role</span>
+      <span class="meta-grid__v">Design Lead: Solo IC → Player-coach → Team of 3+</span>
+      <span class="k">Lifecycle</span>
+      <span class="meta-grid__v">0 → Beta → GA → Continuous releases</span>
     </div>
 
     <div class="hero-figure">
@@ -709,18 +744,13 @@
     </div>
     <h2 class="phase-title">Translate a hacked demo into an actual builder UI, to launch 0→1 in 2 months</h2>
 
-    <div class="meta-row">
-      <div><span class="k">Role</span><span class="v">Solo IC Design Lead</span></div>
-      <div><span class="k">Stakeholders</span><span class="v">2 executives, 5 eng leads (UI, Infra, BE, AI, Platform), 1 PM lead, 2 solutions architects</span></div>
-      <div><span class="k">Timeline</span><span class="v">Under 2 months</span></div>
-    </div>
-
-    <div class="phase-outcomes">
-      <h3>Outcomes</h3>
-      <div class="stat-row">
-        <div class="stat"><div class="num">100</div><div class="lbl">Customers launched</div></div>
-      </div>
-      <p class="phase-outcomes-note">Including ServiceTitan, Persefoni, 6sense, Samsara, Workiva, Zendesk.</p>
+    <div class="meta-row meta-grid">
+      <span class="k">Role</span>
+      <span class="meta-grid__v">Solo IC Design Lead</span>
+      <span class="k">Stakeholders</span>
+      <span class="meta-grid__v">2 executives, 5 eng leads, 1 PM lead, 2 solutions architects</span>
+      <span class="k">Timeline</span>
+      <span class="meta-grid__v">Under 2 months</span>
     </div>
 
     <div class="cs-block">
@@ -735,8 +765,16 @@
       </ol>
     </div>
 
-    <div class="cs-block">
+    <div class="cs-block cs-block--delivered">
       <h3>What we delivered</h3>
+      <div class="delivered-outcomes">
+        <div class="stat-row">
+          <div class="stat">
+            <div class="num">100</div>
+            <div class="lbl">Customers in first launch</div>
+          </div>
+        </div>
+      </div>
       <div class="compare-row">
         <div class="compare-item">
           <div class="figure-img">
@@ -772,43 +810,39 @@
     </div>
     <h2 class="phase-title">Flesh out the initial agent builder into a full-fledged, enterprise-ready platform</h2>
 
-    <div class="meta-row">
-      <div><span class="k">Role</span><span class="v">Started as player-coach, now lead a dedicated AI initiatives design team of 4</span></div>
-      <div><span class="k">Stakeholders</span><span class="v">PM director managing 3 PMs</span></div>
-      <div><span class="k">Timeline</span><span class="v">Interspersed from end of 2024 to today</span></div>
-    </div>
-
-    <div class="phase-outcomes">
-      <h3>Outcomes</h3>
-      <p>As of July 17, 2026, in the past 30 days:</p>
-      <div class="stat-row">
-        <div class="stat"><div class="num">337K</div><div class="lbl">Conversations</div></div>
-        <div class="stat"><div class="num">1.46M</div><div class="lbl">Tool calls</div></div>
-        <div class="stat"><div class="num">1,471</div><div class="lbl">Active agents</div></div>
-        <div class="stat"><div class="num">82%</div><div class="lbl">Adoption across customers</div></div>
-        <div class="stat"><div class="num">434</div><div class="lbl">Paying customers</div></div>
-        <div class="stat"><div class="num"><span class="placeholder" title="Add feature release count">[x]</span></div><div class="lbl">Feature releases</div></div>
-      </div>
-    </div>
-
-    <div class="cs-block">
-      <p>During this period, I also led my team and other designers on the company's second big bet, AIRO — building automations with Gen AI (<a href="case-study-airo.html" style="text-decoration:underline;">see case study</a>) — alongside Pricing and Usage features.</p>
+    <div class="meta-row meta-grid">
+      <span class="k">Role</span>
+      <span class="meta-grid__v">Player-coach → Managing 2 designers</span>
+      <span class="k">Stakeholders</span>
+      <span class="meta-grid__v">2 executives, 3 eng leads, 1 PM director + 3 PMs</span>
+      <span class="k">Timeline</span>
+      <span class="meta-grid__v">End 2024 – mid 2025 (alongside other projects)</span>
     </div>
 
     <div class="cs-block">
       <h3>The ask</h3>
-      <p>After launch, the ask was to make Agent Studio the fastest and safest way for enterprises to deploy customized agents at scale—not a conference demo. That meant rounding out the full agentic platform (skills, knowledge, distribution, observability, guardrails, and IdP-backed governance) so business and admin builders could ship effective Genies without engineering bottlenecks or one-size-fits-all tradeoffs.</p>
+      <p>The beta worked for simple AI agents. The next ask was to make Agent Studio <strong>the most reliable platform for enterprises to deploy customized AI agents</strong> (what we call Genies) at scale. We started designing and shipping more and more features: testing, conversation and trace logging, guardrails, and more. But as we did that, the original Genie editor grew harder to read. Users couldn't easily see what each Genie could do or how it was configured. The design ask became: <strong>making that complexity legible, not just available</strong>.</p>
     </div>
 
-    <div class="cs-block">
+    <div class="cs-block cs-block--delivered">
       <h3>What we delivered</h3>
-      <div class="figure">
-        <span class="placeholder" title="Add a before/after screenshot showing how the builder matured from Phase 1 to Phase 2">Add: before / after — the Phase 1 builder vs. today's enterprise platform</span>
+      <div class="delivered-outcomes">
+        <p class="cs-block__lede">Last 30 days, as of July 17, 2026:</p>
+        <div class="stat-grid">
+          <div class="stat"><div class="num">82%</div><div class="lbl">Adoption across customers</div></div>
+          <div class="stat"><div class="num">434</div><div class="lbl">Paying customers</div></div>
+          <div class="stat"><div class="num">1,471</div><div class="lbl">Active agents</div></div>
+          <div class="stat"><div class="num">337K</div><div class="lbl">Conversations</div></div>
+          <div class="stat"><div class="num">1.46M</div><div class="lbl">Tool calls</div></div>
+        </div>
+      </div>
+      <div class="figure-img">
+        <img src="images/Agent studio - genie editor.png" alt="Agent Studio Genie editor showing identity, triggers, knowledge, skills, and guardrails for a Knowledge Search genie">
       </div>
     </div>
 
     <div class="cs-block cs-block--features">
-      <h3>Sneak peek into some of the features delivered</h3>
+      <p class="cs-block__lede">Sneak peek into some of the other features delivered</p>
       <div class="feature-bento">
 
         <article class="feature-cell">
@@ -820,7 +854,7 @@
         </article>
 
         <article class="feature-cell">
-          <h4>Conversation history and run-level debugging</h4>
+          <h4>Conversation history</h4>
           <p class="feature-sub">Deep dive into each agent run — every step, tool call, and decision — for debugging.</p>
           <div class="feature-cell__media feature-cell__media--stack" data-lightbox-stack aria-label="Expand conversation history screenshots">
             <div class="figure-img figure-img--back"><img src="images/conversation-history-2.jpg" alt="Agent conversation history list view"></div>
@@ -838,7 +872,7 @@
         </article>
 
         <article class="feature-cell">
-          <h4>Expanded LLM options and bring-your-own-LLM</h4>
+          <h4>Expanded LLM options</h4>
           <p class="feature-sub">Letting customers choose or bring the model that best fits their cost, latency, or compliance needs.</p>
           <div class="feature-cell__media feature-cell__media--single">
             <div class="figure-img"><img src="images/llm-options.jpg" alt="LLM selection and bring-your-own-LLM settings"></div>
@@ -846,16 +880,11 @@
         </article>
       </div>
     </div>
-
-    <div class="cs-block">
-      <h3>What I'm proud of</h3>
-      <p class="placeholder" title="Add what you're proud of for this phase">[Add: what you're proud of in growing this from a launch-ready builder into an enterprise platform — team growth, standards set, hard calls made]</p>
-    </div>
   </section>
 
   <footer>
     <span>© 2026 Iliana Ishak</span>
-    <a href="index.html#selected-work">← Back to portfolio</a>
+    <a href="index.html#selected-work">← Back</a>
   </footer>
 
 </div>

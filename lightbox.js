@@ -12,7 +12,11 @@
   overlay.setAttribute('aria-modal', 'true');
   overlay.setAttribute('aria-label', 'Expanded image');
   overlay.innerHTML =
-    '<button type="button" class="image-lightbox__close">Close ✕</button>' +
+    '<button type="button" class="image-lightbox__close" aria-label="Close">' +
+      '<svg viewBox="0 0 20 20" fill="none" aria-hidden="true">' +
+        '<path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>' +
+      '</svg>' +
+    '</button>' +
     '<div class="image-lightbox__inner"><img class="image-lightbox__img" alt=""></div>';
   document.body.appendChild(overlay);
 
