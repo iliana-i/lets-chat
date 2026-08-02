@@ -126,6 +126,38 @@
   }
   .side-nav .nav-copy-email:hover .copy-icon{ transform:scale(1.12); }
   .side-nav .nav-copy-email.copied{ border-color:var(--teal); }
+  .copy-trigger .copy-icon-slot{
+    position:relative;
+    width:14px;
+    height:14px;
+    flex-shrink:0;
+    display:inline-flex;
+  }
+  .copy-trigger .copy-icon,
+  .copy-trigger .check-icon{
+    width:14px;
+    height:14px;
+    flex-shrink:0;
+    stroke:currentColor;
+    transition:opacity .22s ease, transform .28s cubic-bezier(.34,1.4,.64,1);
+  }
+  .copy-trigger .copy-icon-slot .copy-icon,
+  .copy-trigger .copy-icon-slot .check-icon{
+    position:absolute;
+    inset:0;
+  }
+  .copy-trigger .check-icon{
+    opacity:0;
+    transform:scale(.45);
+  }
+  .copy-trigger.copied .copy-icon{
+    opacity:0;
+    transform:scale(.45);
+  }
+  .copy-trigger.copied .check-icon{
+    opacity:1;
+    transform:scale(1);
+  }
   @media (max-width:900px){ .side-nav{display:none;} }
 
   .mobile-nav{ display:none; }
@@ -609,13 +641,18 @@
   <a href="#phase-1" onclick="closeMenu()">Phase 1</a>
   <a href="#phase-2" onclick="closeMenu()">Phase 2</a>
   <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer" class="ext">LinkedIn ↗</a>
-  <a href="REPLACE-WITH-CV-LINK.pdf" class="ext">CV ↓</a>
-  <button type="button" class="mobile-copy-email ext" onclick="copyEmail(this); closeMenu();" aria-label="Copy email address">
-    Email
-    <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width:14px;height:14px;vertical-align:-2px;margin-left:6px;">
-      <rect x="9" y="9" width="11" height="11" rx="2"/>
-      <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
-    </svg>
+  <a href="IlianaIshak_CV2026.pdf" class="ext cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
+  <button type="button" class="mobile-copy-email ext copy-trigger" onclick="copyEmail(this); closeMenu();" aria-label="Copy email address">
+    <span class="copy-label">Email</span>
+    <span class="copy-icon-slot" aria-hidden="true">
+      <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="11" height="11" rx="2"/>
+        <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
+      </svg>
+      <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6L9 17l-5-5"/>
+      </svg>
+    </span>
   </button>
 </div>
 
@@ -631,13 +668,18 @@
   </div>
   <div class="nav-external">
     <a href="https://www.linkedin.com/in/ilianaishak" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
-    <a href="REPLACE-WITH-CV-LINK.pdf">CV ↓</a>
-    <button type="button" class="nav-copy-email" onclick="copyEmail(this)" aria-label="Copy email address">
-      Email
-      <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <rect x="9" y="9" width="11" height="11" rx="2"/>
-        <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
-      </svg>
+    <a href="IlianaIshak_CV2026.pdf" class="cv-link" target="_blank" rel="noopener noreferrer">CV ↗</a>
+    <button type="button" class="nav-copy-email copy-trigger" onclick="copyEmail(this)" aria-label="Copy email address">
+      <span class="copy-label">Email</span>
+      <span class="copy-icon-slot" aria-hidden="true">
+        <svg class="copy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="9" y="9" width="11" height="11" rx="2"/>
+          <path d="M6 15V6a2 2 0 0 1 2-2h9"/>
+        </svg>
+        <svg class="check-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 6L9 17l-5-5"/>
+        </svg>
+      </span>
     </button>
   </div>
 </nav>
@@ -750,7 +792,7 @@
     </div>
 
     <div class="cs-block">
-      <p>During this period, I also led my team and other designers on the company's second big bet, AIRO — building automations with Gen AI (<a href="index.html#selected-work" style="text-decoration:underline;">see case study</a>) — alongside Pricing and Usage features.</p>
+      <p>During this period, I also led my team and other designers on the company's second big bet, AIRO — building automations with Gen AI (<a href="case-study-airo.html" style="text-decoration:underline;">see case study</a>) — alongside Pricing and Usage features.</p>
     </div>
 
     <div class="cs-block">
@@ -829,18 +871,16 @@
   updateRail();
 
   const EMAIL = 'ilianaishak@gmail.com';
+
   function copyEmail(btn){
     navigator.clipboard.writeText(EMAIL).then(function(){
       btn.classList.add('copied');
-      var label = btn.getAttribute('aria-label');
-      if(btn.classList.contains('nav-copy-email')){
-        btn.setAttribute('aria-label', 'Copied email');
-        setTimeout(function(){ btn.classList.remove('copied'); btn.setAttribute('aria-label', label || 'Copy email address'); }, 1600);
-      } else {
-        var prev = btn.textContent;
-        btn.textContent = 'Copied!';
-        setTimeout(function(){ btn.textContent = prev; }, 1600);
-      }
+      var defaultLabel = btn.getAttribute('aria-label') || 'Copy email address';
+      btn.setAttribute('aria-label', 'Copied email');
+      setTimeout(function(){
+        btn.classList.remove('copied');
+        btn.setAttribute('aria-label', defaultLabel);
+      }, 1000);
     });
   }
 
